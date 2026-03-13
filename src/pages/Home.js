@@ -1,7 +1,38 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
 import bgIMG from "../Assets/bgIMG.jpg";
+import { db } from "../firebase";
 
 function Home() {
   const phoneNumber = "918894437637";
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const loadDestinations = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "destinations"));
+        setDestinations(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      } catch (err) {
+        console.warn("Failed to load destinations", err);
+      }
+    };
+
+    loadDestinations();
+  }, []);
+
+  const displayDestinations = destinations.length
+    ? destinations.slice(0, 8)
+    : [
+        "Chandigarh",
+        "Shimla",
+        "Manali",
+        "Dalhousie",
+        "Dharamshala",
+        "Spiti Valley",
+        "Amritsar",
+        "Delhi",
+      ];
 
   return (
     <>
@@ -104,18 +135,9 @@ function Home() {
         <h2 className="center">Popular Destinations</h2>
 
         <div className="grid">
-          {[
-            "Chandigarh",
-            "Shimla",
-            "Manali",
-            "Dalhousie",
-            "Dharamshala",
-            "Spiti Valley",
-            "Amritsar",
-            "Delhi",
-          ].map((place, i) => (
+          {displayDestinations.map((place, i) => (
             <div key={i} className="destination-card">
-              📍 {place}
+              📍 {typeof place === "string" ? place : place.name}
             </div>
           ))}
         </div>
@@ -126,9 +148,24 @@ function Home() {
         <h2>Plan Your Journey Today</h2>
         <p>Call or WhatsApp us for instant booking & best deals</p>
 
-        <a href={`tel:${phoneNumber}`} className="btn btn-call">
-          📞 Book Now
-        </a>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+          <a href={`tel:${phoneNumber}`} className="btn btn-call">
+            📞 Book Now
+          </a>
+
+          <a
+            href={`https://wa.me/${phoneNumber}`}
+            className="btn btn-whatsapp"
+            target="_blank"
+            rel="noreferrer"
+          >
+            💬 WhatsApp
+          </a>
+
+          <Link to="/admin" className="btn" style={{ background: "#64748b" }}>
+            🔒 Admin Login
+          </Link>
+        </div>
       </section>
 
       {/* FLOATING WHATSAPP */}

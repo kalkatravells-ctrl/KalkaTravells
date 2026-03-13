@@ -1,7 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCaw1AL2X1jnik96nRcsq057feyPAU6iy8",
+  apiKey: "AIzaSyCaw1AL2X1jnIk96nRcsqO57feyPAU6iY8",
   authDomain: "kalkatravells-e5bb0.firebaseapp.com",
   projectId: "kalkatravells-e5bb0",
   storageBucket: "kalkatravells-e5bb0.firebasestorage.app",
@@ -12,6 +16,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-
-export default app;
+export { app, analytics, auth, db, storage };
