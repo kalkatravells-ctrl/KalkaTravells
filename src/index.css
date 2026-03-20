@@ -1,12 +1,15 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   background: #f8fafc;
   color: #1e293b;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 .container {
@@ -43,11 +46,13 @@ a {
   top: 0;
   z-index: 100;
 }
+
 .brand {
   color: #fff;
   font-size: 24px;
   font-weight: 600;
 }
+
 .hamburger {
   display: none;
   font-size: 24px;
@@ -56,22 +61,37 @@ a {
   color: white;
   cursor: pointer;
 }
+
 .nav-links {
   display: flex;
 }
+
 .nav-link {
   color: white;
   margin-left: 20px;
   font-weight: 500;
   transition: color 0.2s;
 }
+
 .nav-link:hover {
   color: #2563eb;
 }
+
 @media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
   .hamburger {
     display: block;
   }
+
   .nav-links {
     position: absolute;
     top: 60px;
@@ -84,11 +104,224 @@ a {
     overflow: hidden;
     transition: max-height 0.3s ease;
   }
+
   .nav-links.open {
     max-height: 300px;
   }
+
   .nav-link {
     margin: 15px 0;
+  }
+
+  /* Hero Section */
+  .hero {
+    min-height: 60vh;
+  }
+
+  .hero-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .hero h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  /* Container */
+  .container {
+    padding: 30px 15px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 11px 16px;
+    margin-right: 0;
+    font-size: 14px;
+  }
+
+  /* Sections */
+  .why-section {
+    padding: 50px 0;
+  }
+
+  .light-section {
+    padding: 50px 0;
+  }
+
+  .cta {
+    padding: 50px 20px;
+  }
+
+  /* Text */
+  .heading {
+    font-size: 26px;
+  }
+
+  .subheading {
+    font-size: 14px;
+  }
+
+  /* Grid */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+  }
+
+  /* Cards */
+  .info-card,
+  .service-card,
+  .destination-card {
+    padding: 20px;
+  }
+
+  .info-card {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  }
+
+  .icon {
+    font-size: 32px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 10px 12px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 50vh;
+  }
+
+  .hero-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .hero h2 {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .hero-buttons {
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  /* Container */
+  .container {
+    padding: 25px 12px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 160px;
+    display: block;
+  }
+
+  /* Sections */
+  .why-section {
+    padding: 40px 0;
+  }
+
+  .light-section {
+    padding: 40px 0;
+  }
+
+  .cta {
+    padding: 40px 15px;
+  }
+
+  /* Text */
+  .heading {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .subheading {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .center {
+    font-size: 20px;
+  }
+
+  /* Grid */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Cards */
+  .info-card,
+  .service-card,
+  .destination-card {
+    padding: 16px;
+    font-size: 13px;
+  }
+
+  .info-card h3,
+  .service-card,
+  .destination-card {
+    font-size: 14px;
+  }
+
+  .icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 25px 12px;
+    font-size: 12px;
+  }
+
+  .footer p {
+    margin: 10px 0;
   }
 }
 
@@ -96,34 +329,39 @@ a {
 .hero {
   min-height: 85vh;
   position: relative;
-  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
     url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee');
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
 }
+
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
 }
+
 .hero-content {
   position: relative;
   color: white;
   padding-left: 60px;
   max-width: 620px;
 }
+
 .hero h1 {
   font-size: 50px;
   margin-bottom: 14px;
   letter-spacing: 0.4px;
 }
+
 .hero h2 {
   font-weight: 400;
   margin-bottom: 18px;
 }
+
 .hero-buttons {
   margin-top: 28px;
 }
@@ -177,37 +415,43 @@ a {
   text-align: center;
   margin-bottom: 40px;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 30px;
 }
+
 .light-section {
   background: #f1f5f9;
   padding: 60px 0;
 }
+
 .cta {
   background: #020617;
   color: white;
   padding: 70px 20px;
   text-align: center;
 }
+
 .info-card {
   background: white;
   padding: 25px;
   border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: 0.3s;
 }
+
 .service-card {
   background: white;
   padding: 30px;
   border-radius: 16px;
   text-align: center;
   font-weight: 600;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   transition: 0.3s;
 }
+
 .destination-card {
   background: #0f172a;
   color: white;
@@ -217,22 +461,26 @@ a {
   font-weight: 500;
   transition: 0.3s;
 }
+
 .card:hover,
 .info-card:hover,
 .service-card:hover,
 .destination-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
+
 .heading {
   text-align: center;
   font-size: 32px;
 }
+
 .subheading {
   text-align: center;
   color: #64748b;
   margin-bottom: 40px;
 }
+
 .icon {
   font-size: 40px;
   margin-bottom: 15px;

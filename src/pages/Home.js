@@ -7,6 +7,8 @@ import { db } from "../firebase";
 function Home() {
   const phoneNumber = "918894437637";
   const [destinations, setDestinations] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loadingGallery, setLoadingGallery] = useState(true);
 
   useEffect(() => {
     const loadDestinations = async () => {
@@ -21,18 +23,35 @@ function Home() {
     loadDestinations();
   }, []);
 
+  useEffect(() => {
+    const loadGallery = async () => {
+      try {
+        setLoadingGallery(true);
+        const snapshot = await getDocs(collection(db, "gallery"));
+        const images = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setGalleryImages(images.slice(0, 8));
+      } catch (err) {
+        console.warn("Failed to load gallery", err);
+      } finally {
+        setLoadingGallery(false);
+      }
+    };
+
+    loadGallery();
+  }, []);
+
   const displayDestinations = destinations.length
     ? destinations.slice(0, 8)
     : [
-        "Chandigarh",
-        "Shimla",
-        "Manali",
-        "Dalhousie",
-        "Dharamshala",
-        "Spiti Valley",
-        "Amritsar",
-        "Delhi",
-      ];
+      "Chandigarh",
+      "Shimla",
+      "Manali",
+      "Dalhousie",
+      "Dharamshala",
+      "Spiti Valley",
+      "Amritsar",
+      "Delhi",
+    ];
 
   return (
     <>
@@ -74,45 +93,45 @@ function Home() {
       </section>
 
       {/* WHY CHOOSE US */}
-<section className="why-section">
-  <div className="container">
+      <section className="why-section">
+        <div className="container">
 
-    <h2 className="center">Why Choose TheKalkaTravels?</h2>
+          <h2 className="center">Why Choose TheKalkaTravels?</h2>
 
-    <p className="section-subtitle">
-      Trusted taxi service for comfortable journeys across Himachal & North India.
-    </p>
+          <p className="section-subtitle">
+            Trusted taxi service for comfortable journeys across Himachal & North India.
+          </p>
 
-    <div className="features-grid">
+          <div className="features-grid">
 
-      <div className="feature-card">
-        <div className="feature-icon">🚖</div>
-        <h3>Comfortable Vehicles</h3>
-        <p>Clean, well-maintained cars with AC and spacious seating.</p>
-      </div>
+            <div className="feature-card">
+              <div className="feature-icon">🚖</div>
+              <h3>Comfortable Vehicles</h3>
+              <p>Clean, well-maintained cars with AC and spacious seating.</p>
+            </div>
 
-      <div className="feature-card">
-        <div className="feature-icon">🧑‍✈️</div>
-        <h3>Professional Drivers</h3>
-        <p>Experienced drivers who know local routes and ensure safe travel.</p>
-      </div>
+            <div className="feature-card">
+              <div className="feature-icon">🧑‍✈️</div>
+              <h3>Professional Drivers</h3>
+              <p>Experienced drivers who know local routes and ensure safe travel.</p>
+            </div>
 
-      <div className="feature-card">
-        <div className="feature-icon">💰</div>
-        <h3>Fair Pricing</h3>
-        <p>No hidden charges — transparent and affordable fares.</p>
-      </div>
+            <div className="feature-card">
+              <div className="feature-icon">💰</div>
+              <h3>Fair Pricing</h3>
+              <p>No hidden charges — transparent and affordable fares.</p>
+            </div>
 
-      <div className="feature-card">
-        <div className="feature-icon">🕒</div>
-        <h3>24×7 Service</h3>
-        <p>Book your taxi anytime for airport pickup or long trips.</p>
-      </div>
+            <div className="feature-card">
+              <div className="feature-icon">🕒</div>
+              <h3>24×7 Service</h3>
+              <p>Book your taxi anytime for airport pickup or long trips.</p>
+            </div>
 
-    </div>
+          </div>
 
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* SERVICES */}
       <section className="light-section">
@@ -131,15 +150,100 @@ function Home() {
       </section>
 
       {/* DESTINATIONS */}
-      <section className="container">
-        <h2 className="center">Popular Destinations</h2>
+      <section className="destinations-section">
+        <div className="container">
+          <h2 className="center">Popular Destinations</h2>
 
-        <div className="grid">
-          {displayDestinations.map((place, i) => (
-            <div key={i} className="destination-card">
-              📍 {typeof place === "string" ? place : place.name}
+          <div className="grid">
+            {displayDestinations.map((place, i) => (
+              <div key={i} className="destination-card">
+                📍 {typeof place === "string" ? place : place.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GALLERY SECTION */}
+      <section className="gallery-section">
+        <div className="container">
+          <h2 className="center">✨ Our Gallery</h2>
+          <div className="gallery-divider"></div>
+
+          {loadingGallery ? (
+            <div style={{ textAlign: "center", padding: "60px 20px" }}>
+              <p style={{ fontSize: "18px", color: "#64748b" }}>Loading gallery images...</p>
             </div>
-          ))}
+          ) : galleryImages.length > 0 ? (
+            <div className="gallery-grid">
+              {galleryImages.map((image, index) => (
+                <div key={image.id || index} className="gallery-item">
+                  <img
+                    src={image.url}
+                    alt={image.name || `Gallery ${index + 1}`}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: "center", padding: "60px 20px" }}>
+              <p style={{ fontSize: "18px", color: "#64748b" }}>
+                No gallery images yet. Check back soon!
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* OUR REGULAR ROUTES */}
+      <section className="routes-section">
+        <div className="container">
+          <h2 className="center" style={{ color: "white" }}>Our Regular Routes</h2>
+
+          <div className="routes-grid">
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Delhi
+            </div>
+            <div className="route-item">
+              <span>✓</span> Delhi To Chandigarh
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Manali
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Noida
+            </div>
+            <div className="route-item">
+              <span>✓</span> Noida To Chandigarh
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Dharamshala
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Gurugram
+            </div>
+            <div className="route-item">
+              <span>✓</span> Gurugram To Chandigarh
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Shimla
+            </div>
+            <div className="route-item">
+              <span>✓</span> Chandigarh To Faridabad
+            </div>
+            <div className="route-item">
+              <span>✓</span> Faridabad To Chandigarh
+            </div>
+            <div className="route-item">
+              <span>✓</span> Delhi To Amritsar
+            </div>
+            <div className="route-item">
+              <span>✓</span> Amritsar To Chandigarh
+            </div>
+          </div>
         </div>
       </section>
 

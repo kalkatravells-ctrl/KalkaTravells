@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import DestinationsAdmin from "./DestinationsAdmin";
 import GalleryAdmin from "./GalleryAdmin";
+import "./AdminDashboard.css";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("destinations");
@@ -15,41 +16,55 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 1100 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div>
-          <h2 className="heading">Admin Dashboard</h2>
-          <p className="subheading">Manage destinations, gallery images, and more.</p>
+    <div className="admin-container">
+      {/* Sidebar Navigation */}
+      <aside className="admin-sidebar">
+        <div className="admin-logo">
+          <h2 className="admin-title">Kalka Travels</h2>
+          <p className="admin-subtitle">Admin Panel</p>
         </div>
 
-        <button className="btn" style={{ background: "#dc2626" }} onClick={handleSignOut}>
-          Sign out
-        </button>
-      </div>
+        <nav className="admin-nav">
+          <button
+            className={`nav-item ${activeTab === "destinations" ? "active" : ""}`}
+            onClick={() => setActiveTab("destinations")}
+          >
+            <span className="nav-icon">📍</span>
+            <span>Destinations</span>
+          </button>
+          <button
+            className={`nav-item ${activeTab === "gallery" ? "active" : ""}`}
+            onClick={() => setActiveTab("gallery")}
+          >
+            <span className="nav-icon">🖼️</span>
+            <span>Gallery</span>
+          </button>
+        </nav>
 
-      <div style={{ marginTop: 30, marginBottom: 30 }}>
-        <button
-          onClick={() => setActiveTab("destinations")}
-          className="btn"
-          style={{
-            marginRight: 12,
-            background: activeTab === "destinations" ? "#2563eb" : "#64748b",
-          }}
-        >
-          Destinations
+        <button className="btn-logout" onClick={handleSignOut}>
+          🚪 Sign Out
         </button>
-        <button
-          onClick={() => setActiveTab("gallery")}
-          className="btn"
-          style={{
-            background: activeTab === "gallery" ? "#2563eb" : "#64748b",
-          }}
-        >
-          Gallery
-        </button>
-      </div>
+      </aside>
 
-      {activeTab === "destinations" ? <DestinationsAdmin /> : <GalleryAdmin />}
+      {/* Main Content */}
+      <div className="admin-main">
+        <header className="admin-header">
+          <div>
+            <h1 className="admin-page-title">
+              {activeTab === "destinations" ? "Manage Destinations" : "Manage Gallery"}
+            </h1>
+            <p className="admin-page-subtitle">
+              {activeTab === "destinations"
+                ? "Add, edit, or remove travel destinations from your platform."
+                : "Upload and manage gallery images for your website."}
+            </p>
+          </div>
+        </header>
+
+        <div className="admin-content">
+          {activeTab === "destinations" ? <DestinationsAdmin /> : <GalleryAdmin />}
+        </div>
+      </div>
     </div>
   );
 }

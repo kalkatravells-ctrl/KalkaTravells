@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import "./Destinations.css";
 
 const fallbackDestinations = [
   { name: "Chandigarh", desc: "Clean & Beautiful City" },
@@ -32,17 +33,51 @@ function Destinations() {
   const items = destinations.length ? destinations : fallbackDestinations;
 
   return (
-    <div className="container">
-      <h2>Popular Destinations We Cover</h2>
-      <p>Comfortable & reliable taxi services to all major tourist locations</p>
+    <div className="destinations-container">
+      {/* Hero Section */}
+      <div className="destinations-hero">
+        <div className="destinations-hero-overlay"></div>
+        <div className="destinations-hero-content">
+          <h1>Popular Destinations</h1>
+          <p>Explore amazing places we cover with reliable taxi services</p>
+        </div>
+      </div>
 
-      <div className="grid">
-        {items.map((place, index) => (
-          <div key={place.id ?? index} className="destination-card">
-            <h3>{place.name}</h3>
-            <p>{place.desc}</p>
+      {/* Content Section */}
+      <div className="destinations-content">
+        <div className="destinations-header">
+          <h2>Destinations We Cover</h2>
+          <p>Comfortable & reliable taxi services to all major tourist locations</p>
+        </div>
+
+        {items.length > 0 ? (
+          <div className="destinations-grid">
+            {items.map((place, index) => (
+              <div key={place.id ?? index} className="destination-card">
+                {place.imageUrl && (
+                  <div className="destination-card-image">
+                    <img
+                      src={place.imageUrl}
+                      alt={place.name}
+                    />
+                  </div>
+                )}
+                <div className="destination-card-content">
+                  <div>
+                    <h3>{place.name}</h3>
+                    <p>{place.desc}</p>
+                  </div>
+                  <div className="destination-card-badge">→ Explore</div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className="destinations-empty">
+            <h3>No destinations available</h3>
+            <p>Check back soon for amazing travel destinations!</p>
+          </div>
+        )}
       </div>
     </div>
   );

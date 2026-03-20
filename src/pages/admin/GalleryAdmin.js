@@ -7,19 +7,17 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import { db, storage } from "../../firebase";
+import { db } from "../../firebase";
+import { uploadImageToCloudinary } from "../../utils/cloudinaryService";
+import "./AdminPanel.css";
 
 export default function GalleryAdmin() {
   const [items, setItems] = useState([]);
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const fetchItems = async () => {
     setLoading(true);
@@ -40,27 +38,46 @@ export default function GalleryAdmin() {
     fetchItems();
   }, []);
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file) {
+      setError("Please select an image to upload.");
+      return;
+    }
 
     setLoading(true);
     setError("");
+    setSuccessMessage("");
 
     try {
-      const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
-      await uploadBytes(storageRef, file);
-      const url = await getDownloadURL(storageRef);
+      // Upload to Cloudinary
+      const imageData = await uploadImageToCloudinary(file, "gallery");
 
+      // Save metadata to Firestore
       await addDoc(collection(db, "gallery"), {
-        url,
+        url: imageData.url,
+        publicId: imageData.publicId,
         name: file.name,
         createdAt: serverTimestamp(),
-        storagePath: storageRef.fullPath,
       });
 
       setFile(null);
+      setPreview(null);
       e.target.reset();
+      setSuccessMessage("Image uploaded successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
       await fetchItems();
     } catch (err) {
       console.error("Failed to upload image", err);
@@ -71,12 +88,16 @@ export default function GalleryAdmin() {
   };
 
   const handleDelete = async (item) => {
+    if (!window.confirm("Are you sure you want to delete this image?")) return;
+
     setError("");
+    setSuccessMessage("");
 
     try {
-      if (!item.storagePath) return;
-      await deleteObject(ref(storage, item.storagePath));
+      // Delete from Firestore (image stays on Cloudinary - can add backend delete if needed)
       await deleteDoc(doc(db, "gallery", item.id));
+      setSuccessMessage("Image deleted successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
       await fetchItems();
     } catch (err) {
       console.error("Failed to delete gallery item", err);
@@ -85,59 +106,89 @@ export default function GalleryAdmin() {
   };
 
   return (
-    <div>
-      <h3>Gallery</h3>
-      <p>Upload new images for the public gallery.</p>
+    <div className="admin-section">
+      {/* Error & Success Messages */}
+      {error && <div className="alert alert-error">{error}</div>}
+      {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
-      {error && (
-        <div style={{
-          background: "rgba(220, 38, 38, 0.12)",
-          border: "1px solid rgba(220, 38, 38, 0.5)",
-          padding: 12,
-          borderRadius: 10,
-          marginBottom: 16,
-          color: "#991b1b",
-        }}>
-          <strong>Error:</strong> {error}
-        </div>
-      )}
-
-      <form onSubmit={handleUpload} style={{ marginTop: 18, marginBottom: 24 }}>
-        <div style={{ marginBottom: 12 }}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-            required
-          />
-        </div>
-
-        <button type="submit" className="btn btn-call" disabled={loading}>
-          {loading ? "Uploading…" : "Upload Image"}
-        </button>
-      </form>
-
-      <div className="grid" style={{ marginTop: 0 }}>
-        {items.length === 0 && !loading ? (
-          <p>No gallery images yet.</p>
-        ) : (
-          items.map((item) => (
-            <div key={item.id} className="info-card">
-              <img
-                src={item.url}
-                alt={item.name || "gallery"}
-                style={{ width: "100%", borderRadius: 12, marginBottom: 12 }}
+      {/* Upload Form */}
+      <div className="admin-card form-card">
+        <h3 className="card-title">📤 Upload Gallery Image</h3>
+        <form onSubmit={handleUpload}>
+          <div className="form-group">
+            <label htmlFor="gallery-file">Select Image</label>
+            <div className="file-input-wrapper">
+              <input
+                id="gallery-file"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="file-input"
+                required
               />
-              <p style={{ marginBottom: 12 }}>{item.name}</p>
-              <button
-                className="btn"
-                style={{ background: "#dc2626" }}
-                onClick={() => handleDelete(item)}
-              >
-                Delete
-              </button>
+              <span className="file-input-label">
+                {file ? `✓ ${file.name}` : "Choose an image..."}
+              </span>
             </div>
-          ))
+          </div>
+
+          {preview && (
+            <div className="preview-container">
+              <img src={preview} alt="Preview" className="preview-image" />
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={loading}
+          >
+            {loading ? "Uploading..." : "✓ Upload Image"}
+          </button>
+        </form>
+      </div>
+
+      {/* Gallery Images */}
+      <div className="admin-card">
+        <h3 className="card-title">
+          🖼️ Gallery Images
+          <span className="badge">{items.length}</span>
+        </h3>
+
+        {loading && <p className="loading-text">Loading gallery...</p>}
+
+        {items.length === 0 && !loading ? (
+          <div className="empty-state">
+            <p>No images in the gallery yet. Upload your first image above!</p>
+          </div>
+        ) : (
+          <div className="gallery-grid">
+            {items.map((item, index) => (
+              <div key={item.id} className="gallery-item">
+                <div className="gallery-image-wrapper">
+                  <img
+                    src={item.url}
+                    alt={item.name || "gallery"}
+                    className="gallery-image"
+                  />
+                  <div className="gallery-overlay">
+                    <button
+                      className="btn btn-delete btn-small"
+                      onClick={() => handleDelete(item)}
+                    >
+                      🗑️ Delete
+                    </button>
+                  </div>
+                </div>
+                <div className="gallery-info">
+                  <p className="gallery-name">{item.name}</p>
+                  <small className="gallery-date">
+                    {item.createdAt ? new Date(item.createdAt.toDate()).toLocaleDateString() : "N/A"}
+                  </small>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
