@@ -43,19 +43,19 @@ function Home() {
   const displayDestinations = destinations.length
     ? destinations.slice(0, 8)
     : [
-      "Chandigarh",
-      "Shimla",
-      "Manali",
-      "Dalhousie",
-      "Dharamshala",
-      "Spiti Valley",
-      "Amritsar",
-      "Delhi",
+      { name: "Chandigarh" },
+      { name: "Shimla" },
+      { name: "Manali" },
+      { name: "Dalhousie" },
+      { name: "Dharamshala" },
+      { name: "Spiti Valley" },
+      { name: "Amritsar" },
+      { name: "Delhi" },
     ];
 
   return (
     <>
-      {/* HERO SECTION */}
+      {/* HERO SECTION WITH BOOKING FORM */}
       <section
         className="hero"
         style={{
@@ -68,98 +68,154 @@ function Home() {
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
-          <h1>Travel with Comfort & Trust</h1>
-          <h2>TheKalkaTravels – Your Reliable Travel Partner</h2>
-          <p>
-            Taxi services, tour packages & outstation trips across North India
-            with professional drivers.
-          </p>
-
-          <div className="hero-buttons">
-            <a href={`tel:${phoneNumber}`} className="btn btn-call">
-              📞 Call Now
-            </a>
-
-            <a
-              href={`https://wa.me/${phoneNumber}`}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-whatsapp"
-            >
-              💬 WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY CHOOSE US */}
-      <section className="why-section">
-        <div className="container">
-
-          <h2 className="center">Why Choose TheKalkaTravels?</h2>
-
-          <p className="section-subtitle">
-            Trusted taxi service for comfortable journeys across Himachal & North India.
-          </p>
-
-          <div className="features-grid">
-
-            <div className="feature-card">
-              <div className="feature-icon">🚖</div>
-              <h3>Comfortable Vehicles</h3>
-              <p>Clean, well-maintained cars with AC and spacious seating.</p>
+          <h1>Book Your Perfect Ride with TheKalkaTravels</h1>
+          
+          <div className="booking-container">
+            <div className="booking-tabs">
+              <div className="tab active">Outstation</div>
+              <div className="tab">Airport Transfer</div>
+              <div className="tab">Local</div>
             </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">🧑‍✈️</div>
-              <h3>Professional Drivers</h3>
-              <p>Experienced drivers who know local routes and ensure safe travel.</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">💰</div>
-              <h3>Fair Pricing</h3>
-              <p>No hidden charges — transparent and affordable fares.</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🕒</div>
-              <h3>24×7 Service</h3>
-              <p>Book your taxi anytime for airport pickup or long trips.</p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section className="light-section">
-        <div className="container">
-          <h2 className="center">Our Services</h2>
-
-          <div className="grid">
-            <div className="service-card">🚖 Local Taxi</div>
-            <div className="service-card">🛣 Outstation Trips</div>
-            <div className="service-card">🏔 Himachal Tour Packages</div>
-            <div className="service-card">🚐 Tempo Traveller</div>
-            <div className="service-card">✈ Airport Pickup</div>
-            <div className="service-card">🕉 Char Dham Yatra</div>
-          </div>
-        </div>
-      </section>
-
-      {/* DESTINATIONS */}
-      <section className="destinations-section">
-        <div className="container">
-          <h2 className="center">Popular Destinations</h2>
-
-          <div className="grid">
-            {displayDestinations.map((place, i) => (
-              <div key={i} className="destination-card">
-                📍 {typeof place === "string" ? place : place.name}
+            <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
+              <div className="input-group">
+                <label>From</label>
+                <input type="text" placeholder="Enter Source" defaultValue="Kalka" />
               </div>
-            ))}
+              <div className="input-group">
+                <label>To</label>
+                <input type="text" placeholder="Enter Destination" />
+              </div>
+              <div className="input-group">
+                <label>Pick-Up Date</label>
+                <input type="date" defaultValue={new Date().toISOString().split('T')[0]} />
+              </div>
+              <button type="submit" className="btn-search">SEARCH</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* VEHICLE OPTIONS SECTION */}
+      <section className="vehicle-section section">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="section-title">Available Cabs</h2>
+            <p className="section-subtitle">Choose from our wide range of well-maintained vehicles</p>
+          </div>
+
+          <div className="vehicle-list">
+            {/* Sedan Option */}
+            <div className="vehicle-card">
+              <div className="vehicle-img">
+                <img src="https://img.freepik.com/free-photo/white-offroader-jeep-parking_114579-4007.jpg?t=st=1711255000~exp=1711258600~hmac=5c6" alt="Sedan" />
+              </div>
+              <div className="vehicle-details">
+                <h3>Dzire, Etios Or Equivalent</h3>
+                <div className="vehicle-specs">
+                  <span>Sedan</span>
+                  <span>• 4 Seat</span>
+                  <span>• 2 Luggage</span>
+                  <span>• AC</span>
+                </div>
+                <div className="vehicle-features">
+                  <div className="feature-item">✓ Professional Driver</div>
+                  <div className="feature-item">✓ Fuel Type: CNG/Diesel</div>
+                  <div className="feature-item">✓ Cancellation Policy: Free</div>
+                  <div className="feature-item">✓ 24/7 Support</div>
+                </div>
+              </div>
+              <div className="vehicle-price-action">
+                <div className="price">₹ 2,499</div>
+                <p className="price-desc">Taxes & Charges extra</p>
+                <a href={`tel:${phoneNumber}`} className="btn-book">Book Now</a>
+              </div>
+            </div>
+
+            {/* SUV Option */}
+            <div className="vehicle-card">
+              <div className="vehicle-img">
+                <img src="https://img.freepik.com/free-photo/silver-luxury-suv-car-parking_114579-4005.jpg" alt="SUV" />
+              </div>
+              <div className="vehicle-details">
+                <h3>Innova, Ertiga Or Equivalent</h3>
+                <div className="vehicle-specs">
+                  <span>SUV</span>
+                  <span>• 6 Seat</span>
+                  <span>• 3 Luggage</span>
+                  <span>• AC</span>
+                </div>
+                <div className="vehicle-features">
+                  <div className="feature-item">✓ Extra Legroom</div>
+                  <div className="feature-item">✓ Fuel Type: Diesel</div>
+                  <div className="feature-item">✓ Cancellation Policy: Free</div>
+                  <div className="feature-item">✓ Professional Driver</div>
+                </div>
+              </div>
+              <div className="vehicle-price-action">
+                <div className="price">₹ 3,850</div>
+                <p className="price-desc">Taxes & Charges extra</p>
+                <a href={`tel:${phoneNumber}`} className="btn-book">Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFITS SECTION */}
+      <section className="benefits-section section">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="section-title">Benefits of Booking with Us</h2>
+          </div>
+          <div className="benefits-grid">
+            <div className="benefit-item">
+              <div className="benefit-icon">💳</div>
+              <h4>Part Payment</h4>
+              <p>Book by paying just 25% now and rest to the driver.</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">📅</div>
+              <h4>Schedule Advance</h4>
+              <p>Book your ride in advance for a hassle-free journey.</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">🛡️</div>
+              <h4>Safe Journey</h4>
+              <p>Verified drivers and well-maintained vehicles.</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">📞</div>
+              <h4>24/7 Support</h4>
+              <p>Our team is always available to assist you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ROUTE DETAILS SECTION */}
+      <section className="route-section section">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="section-title">Route Details</h2>
+          </div>
+          <div className="route-table">
+            <div className="table-header">
+              <div>Journey Insight</div>
+              <div>Details</div>
+            </div>
+            <div className="table-row">
+              <div>Popular Route</div>
+              <div>Kalka to Shimla / Manali</div>
+            </div>
+            <div className="table-row">
+              <div>Average Distance</div>
+              <div>~90 KM (Shimla)</div>
+            </div>
+            <div className="table-row">
+              <div>Estimated Time</div>
+              <div>~3 Hours</div>
+            </div>
           </div>
         </div>
       </section>

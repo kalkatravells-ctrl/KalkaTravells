@@ -4,14 +4,14 @@ import { db } from "../firebase";
 import "./Destinations.css";
 
 const fallbackDestinations = [
-  { name: "Chandigarh", desc: "Clean & Beautiful City" },
-  { name: "Delhi", desc: "Capital of India" },
-  { name: "Jaipur", desc: "Pink City of Rajasthan" },
-  { name: "Agra", desc: "Home of Taj Mahal" },
-  { name: "Amritsar", desc: "Golden Temple City" },
-  { name: "Shimla", desc: "Queen of Hills" },
-  { name: "Manali", desc: "Snow & Adventure" },
-  { name: "Dharamshala", desc: "Peace & Tibetan Culture" },
+  { name: "Chandigarh", desc: "Clean & Beautiful City", imageUrl: "https://images.unsplash.com/photo-1595928642581-f50f4f3453a5?auto=format&fit=crop&w=800&q=80" },
+  { name: "Delhi", desc: "Capital of India", imageUrl: "https://images.unsplash.com/photo-1587474260584-1f20d4296c06?auto=format&fit=crop&w=800&q=80" },
+  { name: "Jaipur", desc: "Pink City of Rajasthan", imageUrl: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80" },
+  { name: "Agra", desc: "Home of Taj Mahal", imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea023?auto=format&fit=crop&w=800&q=80" },
+  { name: "Amritsar", desc: "Golden Temple City", imageUrl: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&w=800&q=80" },
+  { name: "Shimla", desc: "Queen of Hills", imageUrl: "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?auto=format&fit=crop&w=800&q=80" },
+  { name: "Manali", desc: "Snow & Adventure", imageUrl: "https://images.unsplash.com/photo-1593181629936-11c609b8db9b?auto=format&fit=crop&w=800&q=80" },
+  { name: "Dharamshala", desc: "Peace & Tibetan Culture", imageUrl: "https://images.unsplash.com/photo-1582211594533-268f4f1edeb9?auto=format&fit=crop&w=800&q=80" },
 ];
 
 function Destinations() {

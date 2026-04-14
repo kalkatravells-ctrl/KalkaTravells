@@ -7,41 +7,43 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Logo */}
-      <Link to="/" onClick={() => setOpen(false)} className="logo-wrapper">
-        <img src={logo} alt="Kalka Travels Logo" className="logo" style={{height: '70px'}} />
-      </Link>
-
-      {/* Hamburger */}
-      <button className="hamburger" onClick={() => setOpen(!open)}>
-        ☰
-      </button>
-
-      {/* Links */}
-      <div className={`nav-links ${open ? "open" : ""}`}>
-        <Link to="/" className="nav-link" onClick={() => setOpen(false)}>
-          Home
+      <div className="container">
+        {/* Logo */}
+        <Link to="/" onClick={() => setOpen(false)} className="logo-wrapper">
+          <img src={logo} alt="Kalka Travels Logo" />
         </Link>
 
-        <Link to="/about" className="nav-link" onClick={() => setOpen(false)}>
-          About
-        </Link>
+        {/* Hamburger */}
+        <button className="hamburger" onClick={() => setOpen(!open)}>
+          {open ? "✕" : "☰"}
+        </button>
 
-        <Link to="/services" className="nav-link" onClick={() => setOpen(false)}>
-          Services
-        </Link>
+        {/* Links */}
+        <div className={`nav-links ${open ? "open" : ""}`}>
+          <Link to="/" className="nav-link" onClick={() => setOpen(false)}>
+            Home
+          </Link>
 
-        <Link
-          to="/destinations"
-          className="nav-link"
-          onClick={() => setOpen(false)}
-        >
-          Destinations
-        </Link>
+          <Link to="/about" className="nav-link" onClick={() => setOpen(false)}>
+            About
+          </Link>
 
-        <Link to="/contact" className="nav-link" onClick={() => setOpen(false)}>
-          Contact
-        </Link>
+          <Link to="/services" className="nav-link" onClick={() => setOpen(false)}>
+            Services
+          </Link>
+
+          <Link
+            to="/destinations"
+            className="nav-link"
+            onClick={() => setOpen(false)}
+          >
+            Destinations
+          </Link>
+
+          <Link to="/contact" className="nav-link" onClick={() => setOpen(false)}>
+            Contact
+          </Link>
+        </div>
       </div>
     </nav>
   );

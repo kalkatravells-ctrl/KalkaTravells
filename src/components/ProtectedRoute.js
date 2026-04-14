@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
-const ADMIN_UID = "LeQZmHbUbeWSyuMMrq0V6wu28093";
+const ADMIN_UID = process.env.REACT_APP_ADMIN_UID;
 
 export default function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
