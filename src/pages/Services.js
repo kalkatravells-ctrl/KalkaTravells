@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import bgIMG from "../Assets/bgIMG.jpg";
 import "./Services.css";
 
 function Services() {
@@ -108,9 +109,10 @@ function Services() {
   return (
     <div className="services-container">
       {/* HERO SECTION */}
-      <section className="services-hero">
+      <section className="services-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
+          <span className="section-tag" style={{ background: "rgba(249,115,22,0.2)", color: "#fdba74", border: "1px solid rgba(249,115,22,0.4)", marginBottom: "16px", display: "inline-block" }}>Services</span>
           <h1>Our Services & Fleet</h1>
           <p>Premium Travel Solutions for Every Journey</p>
         </div>
@@ -129,10 +131,14 @@ function Services() {
             {(loading ? vehicleCategories : vehicles).map((vehicle, index) => (
               <div key={index} className="vehicle-card">
                 <div className="vehicle-image-placeholder">
-                  {vehicle.icon || vehicle.image ? (
+                  {vehicle.icon ? (
                     <span className="vehicle-icon">{vehicle.icon}</span>
+                  ) : vehicle.image && !vehicle.image.startsWith("http") ? (
+                    <span className="vehicle-icon">🚗</span>
+                  ) : vehicle.image ? (
+                    <img src={vehicle.image} alt={vehicle.name} onError={e => { e.target.style.display="none"; e.target.parentElement.innerHTML="<span class='vehicle-icon'>🚗</span>"; }} />
                   ) : (
-                    <img src={vehicle.image} alt={vehicle.name} />
+                    <span className="vehicle-icon">🚗</span>
                   )}
                 </div>
                 <h3 className="vehicle-name">{vehicle.name}</h3>

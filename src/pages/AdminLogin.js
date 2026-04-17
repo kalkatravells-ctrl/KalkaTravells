@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import "./AdminLogin.css";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -18,94 +19,77 @@ export default function AdminLogin() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate(from, { replace: true });
     } catch (err) {
-      console.error("Firebase auth error:", err);
-      setError(err.code ? `${err.code}: ${err.message}` : "Invalid email or password.");
+      setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container" style={{ maxWidth: 520 }}>
-      <h2 className="heading">Admin Login</h2>
-      <p className="subheading">Sign in to manage destinations, gallery & more.</p>
-
-      <form onSubmit={handleSubmit} style={{ marginTop: 30 }}>
-        <div style={{ marginBottom: 20 }}>
-          <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>
-            Email
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #cbd5e1" }}
-          />
+    <div className="admin-login-page">
+      <div className="admin-login-card">
+        <div className="admin-login-header">
+          <div className="admin-login-icon">🔐</div>
+          <h1>Admin Login</h1>
+          <p>Sign in to manage your travel website</p>
         </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>
-            Password
-          </label>
-          <div style={{ position: "relative" }}>
+        <form onSubmit={handleSubmit} className="admin-login-form">
+          <div className="al-field">
+            <label htmlFor="email">Email Address</label>
             <input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="admin@example.com"
               required
-              style={{
-                width: "100%",
-                padding: "10px 40px 10px 10px",
-                borderRadius: 8,
-                border: "1px solid #cbd5e1",
-              }}
+              autoComplete="email"
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              style={{
-                position: "absolute",
-                right: 10,
-                top: "50%",
-                transform: "translateY(-50%)",
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                fontSize: 16,
-                color: "#64748b",
-              }}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </button>
           </div>
-        </div>
 
-        {error && (
-          <p style={{ color: "#dc2626", marginBottom: 18 }}>
-            {error}
-          </p>
-        )}
+          <div className="al-field">
+            <label htmlFor="password">Password</label>
+            <div className="al-password-wrap">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="al-toggle-pw"
+                onClick={() => setShowPassword(p => !p)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
+          </div>
 
-        <button
-          type="submit"
-          className="btn btn-call"
-          style={{ width: "100%", justifyContent: "center" }}
-          disabled={loading}
-        >
-          {loading ? "Signing in…" : "Sign In"}
-        </button>
+          {error && <div className="al-error">{error}</div>}
 
-        <p style={{ marginTop: 18, fontSize: 14, color: "#64748b" }}>
-          Note: Admin account must be created in Firebase Authentication (Email/Password).
+          <button type="submit" className="al-submit-btn" disabled={loading}>
+            {loading ? (
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                <span className="al-spinner" /> Signing in...
+              </span>
+            ) : "Sign In →"}
+          </button>
+        </form>
+
+        <p className="al-note">
+          Admin account must be set up in Firebase Authentication.
         </p>
-      </form>
+      </div>
     </div>
   );
 }

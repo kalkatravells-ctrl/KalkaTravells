@@ -3,340 +3,280 @@ import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import bgIMG from "../Assets/bgIMG.jpg";
 import { db } from "../firebase";
+import "./Home.css";
+
+const PHONE = "918894437637";
+const PHONE_DISPLAY = "+91 88944 37637";
+
+const ROUTES = [
+  "Chandigarh → Delhi", "Delhi → Chandigarh", "Chandigarh → Manali",
+  "Chandigarh → Shimla", "Chandigarh → Dharamshala", "Delhi → Amritsar",
+  "Chandigarh → Noida", "Noida → Chandigarh", "Chandigarh → Gurugram",
+  "Gurugram → Chandigarh", "Chandigarh → Faridabad", "Amritsar → Chandigarh",
+];
+
+const STATS = [
+  { value: "25+", label: "Years Experience" },
+  { value: "10K+", label: "Happy Customers" },
+  { value: "50+", label: "Destinations" },
+  { value: "24/7", label: "Support" },
+];
+
+const FALLBACK_DESTS = [
+  "Chandigarh", "Shimla", "Manali", "Dalhousie",
+  "Dharamshala", "Spiti Valley", "Amritsar", "Delhi",
+  "Kasol", "Kullu", "Mussoorie", "Haridwar",
+].map(n => ({ name: n }));
+
+const BENEFITS = [
+  { icon: "💳", title: "Part Payment", desc: "Book by paying just 25% now, rest to the driver." },
+  { icon: "📅", title: "Advance Booking", desc: "Schedule your ride in advance for a hassle-free journey." },
+  { icon: "🛡️", title: "Safe Journey", desc: "Verified drivers and well-maintained vehicles." },
+  { icon: "📞", title: "24/7 Support", desc: "Our team is always available to assist you." },
+  { icon: "💰", title: "Best Prices", desc: "Transparent pricing with no hidden charges." },
+  { icon: "🌍", title: "All India Permit", desc: "Travel anywhere across India without restrictions." },
+];
 
 function Home() {
-  const phoneNumber = "918894437637";
-  const [destinations, setDestinations] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
-  const [loadingGallery, setLoadingGallery] = useState(true);
+  const [destinations, setDestinations] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
-    const loadDestinations = async () => {
+    const loadData = async () => {
       try {
-        const snapshot = await getDocs(collection(db, "destinations"));
-        setDestinations(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        const [destSnap, gallerySnap, vehicleSnap] = await Promise.all([
+          getDocs(collection(db, "destinations")),
+          getDocs(collection(db, "gallery")),
+          getDocs(collection(db, "vehicles")),
+        ]);
+        setDestinations(destSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+        setGalleryImages(gallerySnap.docs.map(d => ({ id: d.id, ...d.data() })).slice(0, 8));
+        setVehicles(vehicleSnap.docs.map(d => ({ id: d.id, ...d.data() })));
       } catch (err) {
-        console.warn("Failed to load destinations", err);
+        console.warn("Failed to load data", err);
       }
     };
-
-    loadDestinations();
+    loadData();
   }, []);
 
-  useEffect(() => {
-    const loadGallery = async () => {
-      try {
-        setLoadingGallery(true);
-        const snapshot = await getDocs(collection(db, "gallery"));
-        const images = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setGalleryImages(images.slice(0, 8));
-      } catch (err) {
-        console.warn("Failed to load gallery", err);
-      } finally {
-        setLoadingGallery(false);
-      }
-    };
+  // Merge Firebase destinations with fallback — always show at least 8
+  const displayVehicles = vehicles;
 
-    loadGallery();
-  }, []);
-
-  const displayDestinations = destinations.length
-    ? destinations.slice(0, 8)
-    : [
-      { name: "Chandigarh" },
-      { name: "Shimla" },
-      { name: "Manali" },
-      { name: "Dalhousie" },
-      { name: "Dharamshala" },
-      { name: "Spiti Valley" },
-      { name: "Amritsar" },
-      { name: "Delhi" },
-    ];
+  // Merge Firebase destinations with fallback — always show at least 8
+  const mergedDests = (() => {
+    if (destinations.length >= 8) return destinations.slice(0, 12);
+    const fbNames = new Set(destinations.map(d => d.name?.toLowerCase()));
+    const extra = FALLBACK_DESTS.filter(d => !fbNames.has(d.name.toLowerCase()));
+    return [...destinations, ...extra].slice(0, 12);
+  })();
 
   return (
     <>
-      {/* HERO SECTION WITH BOOKING FORM */}
-      <section
-        className="hero"
-        style={{
-          backgroundImage: `url(${bgIMG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="hero-overlay"></div>
-
-        <div className="hero-content">
-          <h1>Book Your Perfect Ride with TheKalkaTravels</h1>
-          
-          <div className="booking-container">
-            <div className="booking-tabs">
-              <div className="tab active">Outstation</div>
-              <div className="tab">Airport Transfer</div>
-              <div className="tab">Local</div>
-            </div>
-
-            <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
-              <div className="input-group">
-                <label>From</label>
-                <input type="text" placeholder="Enter Source" defaultValue="Kalka" />
+      {/* ===== HERO ===== */}
+      <section className="home-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
+        <div className="home-hero-overlay" />
+        <div className="home-hero-content">
+          <div className="home-hero-badge">🏆 Trusted Since 1999</div>
+          <h1>Your Journey, Our <span className="hero-highlight">Commitment</span></h1>
+          <p>Premium taxi & tour services across North India. Safe, comfortable, and affordable travel with experienced drivers.</p>
+          <div className="home-hero-actions">
+            <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Book Now</a>
+            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+          </div>
+          <div className="home-hero-stats">
+            {STATS.map((s, i) => (
+              <div key={i} className="hero-stat">
+                <span className="hero-stat-value">{s.value}</span>
+                <span className="hero-stat-label">{s.label}</span>
               </div>
-              <div className="input-group">
-                <label>To</label>
-                <input type="text" placeholder="Enter Destination" />
-              </div>
-              <div className="input-group">
-                <label>Pick-Up Date</label>
-                <input type="date" defaultValue={new Date().toISOString().split('T')[0]} />
-              </div>
-              <button type="submit" className="btn-search">SEARCH</button>
-            </form>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* VEHICLE OPTIONS SECTION */}
-      <section className="vehicle-section section">
+      {/* ===== VEHICLES ===== */}
+      <section className="section home-vehicles-section">
         <div className="container">
-          <div className="text-center">
-            <h2 className="section-title">Available Cabs</h2>
-            <p className="section-subtitle">Choose from our wide range of well-maintained vehicles</p>
+          <div className="text-center" style={{ marginBottom: "48px" }}>
+            <span className="section-tag">Our Fleet</span>
+            <h2 className="section-title">Choose Your Ride</h2>
+            <p className="section-desc">Well-maintained vehicles with professional drivers for every journey</p>
           </div>
-
-          <div className="vehicle-list">
-            {/* Sedan Option */}
-            <div className="vehicle-card">
-              <div className="vehicle-img">
-                <img src="https://img.freepik.com/free-photo/white-offroader-jeep-parking_114579-4007.jpg?t=st=1711255000~exp=1711258600~hmac=5c6" alt="Sedan" />
-              </div>
-              <div className="vehicle-details">
-                <h3>Dzire, Etios Or Equivalent</h3>
-                <div className="vehicle-specs">
-                  <span>Sedan</span>
-                  <span>• 4 Seat</span>
-                  <span>• 2 Luggage</span>
-                  <span>• AC</span>
+          <div className="vehicles-grid-cards">
+            {displayVehicles.map((v, i) => (
+              <div key={v.id || i} className="vehicle-card-new">
+                {/* Image */}
+                {v.imageUrl && (
+                  <div className="vcn-img-wrap">
+                    <img src={v.imageUrl} alt={v.name} loading="lazy"
+                      onError={e => { e.target.parentElement.style.display = "none"; }} />
+                  </div>
+                )}
+                <div className="vcn-header">
+                  <div className="vcn-icon-wrap" style={{ background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.2)" }}>
+                    <span className="vcn-icon">{v.icon || "🚗"}</span>
+                  </div>
+                  <span className="vcn-badge">{v.category || v.type || "Vehicle"}</span>
                 </div>
-                <div className="vehicle-features">
-                  <div className="feature-item">✓ Professional Driver</div>
-                  <div className="feature-item">✓ Fuel Type: CNG/Diesel</div>
-                  <div className="feature-item">✓ Cancellation Policy: Free</div>
-                  <div className="feature-item">✓ 24/7 Support</div>
+                <h3 className="vcn-name">{v.name}</h3>
+                <div className="vcn-specs">
+                  {(v.seatingCapacity || v.seats) ? (
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      {v.seatingCapacity || v.seats} Seats
+                    </span>
+                  ) : null}
+                  {(v.luggageCapacity || v.luggage) ? (
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                      {v.luggageCapacity || v.luggage} Bags
+                    </span>
+                  ) : null}
+                  {(v.hasAC !== false) && (
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                      AC
+                    </span>
+                  )}
+                  {v.fuelType && <span>⛽ {v.fuelType}</span>}
+                </div>
+                <div className="vcn-features">
+                  {v.features
+                    ? v.features.map((f, j) => (
+                        <span key={j} className="vcn-feature">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          {f}
+                        </span>
+                      ))
+                    : [
+                        v.cancellationPolicy && `Free cancellation: ${v.cancellationPolicy}`,
+                        v.kmCharges && `${v.kmCharges} per km`,
+                        v.offerText && v.offerText,
+                      ].filter(Boolean).map((f, j) => (
+                        <span key={j} className="vcn-feature">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          {f}
+                        </span>
+                      ))
+                  }
+                </div>
+                <div className="vcn-footer">
+                  <div>
+                    <div className="vcn-price">
+                      {v.finalPrice ? `₹${Number(v.finalPrice).toLocaleString("en-IN")}` : v.price || "—"}
+                    </div>
+                    <div className="vcn-price-note">Starting price</div>
+                  </div>
+                  <a href={`tel:${PHONE}`} className="btn vcn-btn">Book Now</a>
                 </div>
               </div>
-              <div className="vehicle-price-action">
-                <div className="price">₹ 2,499</div>
-                <p className="price-desc">Taxes & Charges extra</p>
-                <a href={`tel:${phoneNumber}`} className="btn-book">Book Now</a>
-              </div>
-            </div>
-
-            {/* SUV Option */}
-            <div className="vehicle-card">
-              <div className="vehicle-img">
-                <img src="https://img.freepik.com/free-photo/silver-luxury-suv-car-parking_114579-4005.jpg" alt="SUV" />
-              </div>
-              <div className="vehicle-details">
-                <h3>Innova, Ertiga Or Equivalent</h3>
-                <div className="vehicle-specs">
-                  <span>SUV</span>
-                  <span>• 6 Seat</span>
-                  <span>• 3 Luggage</span>
-                  <span>• AC</span>
-                </div>
-                <div className="vehicle-features">
-                  <div className="feature-item">✓ Extra Legroom</div>
-                  <div className="feature-item">✓ Fuel Type: Diesel</div>
-                  <div className="feature-item">✓ Cancellation Policy: Free</div>
-                  <div className="feature-item">✓ Professional Driver</div>
-                </div>
-              </div>
-              <div className="vehicle-price-action">
-                <div className="price">₹ 3,850</div>
-                <p className="price-desc">Taxes & Charges extra</p>
-                <a href={`tel:${phoneNumber}`} className="btn-book">Book Now</a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* BENEFITS SECTION */}
-      <section className="benefits-section section">
+      {/* ===== BENEFITS ===== */}
+      <section className="section home-benefits-section">
         <div className="container">
-          <div className="text-center">
-            <h2 className="section-title">Benefits of Booking with Us</h2>
+          <div className="text-center" style={{ marginBottom: "48px" }}>
+            <span className="section-tag">Why Us</span>
+            <h2 className="section-title">Why Choose TheKalkaTravels?</h2>
+            <p className="section-desc">We go beyond just transportation — we deliver experiences</p>
           </div>
           <div className="benefits-grid">
-            <div className="benefit-item">
-              <div className="benefit-icon">💳</div>
-              <h4>Part Payment</h4>
-              <p>Book by paying just 25% now and rest to the driver.</p>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-icon">📅</div>
-              <h4>Schedule Advance</h4>
-              <p>Book your ride in advance for a hassle-free journey.</p>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-icon">🛡️</div>
-              <h4>Safe Journey</h4>
-              <p>Verified drivers and well-maintained vehicles.</p>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-icon">📞</div>
-              <h4>24/7 Support</h4>
-              <p>Our team is always available to assist you.</p>
-            </div>
+            {BENEFITS.map((b, i) => (
+              <div key={i} className="benefit-card">
+                <div className="benefit-icon-wrap">
+                  <span className="benefit-icon">{b.icon}</span>
+                </div>
+                <h4>{b.title}</h4>
+                <p>{b.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ROUTE DETAILS SECTION */}
-      <section className="route-section section">
+      {/* ===== DESTINATIONS ===== */}
+      <section className="section home-dests-section">
         <div className="container">
-          <div className="text-center">
-            <h2 className="section-title">Route Details</h2>
+          <div className="home-dests-header">
+            <div>
+              <span className="section-tag">Destinations</span>
+              <h2 className="section-title" style={{ textAlign: "left" }}>Popular Destinations</h2>
+            </div>
+            <Link to="/destinations" className="btn btn-primary">View All →</Link>
           </div>
-          <div className="route-table">
-            <div className="table-header">
-              <div>Journey Insight</div>
-              <div>Details</div>
-            </div>
-            <div className="table-row">
-              <div>Popular Route</div>
-              <div>Kalka to Shimla / Manali</div>
-            </div>
-            <div className="table-row">
-              <div>Average Distance</div>
-              <div>~90 KM (Shimla)</div>
-            </div>
-            <div className="table-row">
-              <div>Estimated Time</div>
-              <div>~3 Hours</div>
-            </div>
+          <div className="home-dests-grid">
+            {mergedDests.map((d, i) => (
+              <div key={d.id || i} className="home-dest-chip">
+                <span>📍</span> {d.name}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* GALLERY SECTION */}
-      <section className="gallery-section">
+      {/* ===== ROUTES ===== */}
+      <section className="home-routes-section">
         <div className="container">
-          <h2 className="center">✨ Our Gallery</h2>
-          <div className="gallery-divider"></div>
+          <div className="text-center" style={{ marginBottom: "40px" }}>
+            <span className="section-tag" style={{ background: "rgba(255,255,255,0.1)", color: "white" }}>Routes</span>
+            <h2 className="section-title" style={{ color: "white" }}>Our Regular Routes</h2>
+          </div>
+          <div className="routes-grid">
+            {ROUTES.map((r, i) => (
+              <div key={i} className="route-chip">
+                <span className="route-arrow">→</span> {r}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {loadingGallery ? (
-            <div style={{ textAlign: "center", padding: "60px 20px" }}>
-              <p style={{ fontSize: "18px", color: "#64748b" }}>Loading gallery images...</p>
+      {/* ===== GALLERY ===== */}
+      {galleryImages.length > 0 && (
+        <section className="section home-gallery-section">
+          <div className="container">
+            <div className="text-center" style={{ marginBottom: "40px" }}>
+              <span className="section-tag">Gallery</span>
+              <h2 className="section-title">Our Gallery</h2>
             </div>
-          ) : galleryImages.length > 0 ? (
-            <div className="gallery-grid">
-              {galleryImages.map((image, index) => (
-                <div key={image.id || index} className="gallery-item">
+            <div className="home-gallery-grid">
+              {galleryImages.map((img, i) => (
+                <div key={img.id || i} className={`gallery-cell ${i === 0 ? "gallery-cell-large" : ""}`}>
                   <img
-                    src={image.url}
-                    alt={image.name || `Gallery ${index + 1}`}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
+                    src={img.url}
+                    alt={img.name || `Gallery ${i + 1}`}
+                    loading="lazy"
+                    onError={e => { e.target.parentElement.style.display = "none"; }}
                   />
                 </div>
               ))}
             </div>
-          ) : (
-            <div style={{ textAlign: "center", padding: "60px 20px" }}>
-              <p style={{ fontSize: "18px", color: "#64748b" }}>
-                No gallery images yet. Check back soon!
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* OUR REGULAR ROUTES */}
-      <section className="routes-section">
+      {/* ===== CTA ===== */}
+      <section className="home-cta-section">
         <div className="container">
-          <h2 className="center" style={{ color: "white" }}>Our Regular Routes</h2>
-
-          <div className="routes-grid">
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Delhi
+          <div className="home-cta-box">
+            <div className="home-cta-content">
+              <h2>Ready for Your Next Journey?</h2>
+              <p>Call or WhatsApp us for instant booking and best deals across North India</p>
             </div>
-            <div className="route-item">
-              <span>✓</span> Delhi To Chandigarh
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Manali
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Noida
-            </div>
-            <div className="route-item">
-              <span>✓</span> Noida To Chandigarh
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Dharamshala
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Gurugram
-            </div>
-            <div className="route-item">
-              <span>✓</span> Gurugram To Chandigarh
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Shimla
-            </div>
-            <div className="route-item">
-              <span>✓</span> Chandigarh To Faridabad
-            </div>
-            <div className="route-item">
-              <span>✓</span> Faridabad To Chandigarh
-            </div>
-            <div className="route-item">
-              <span>✓</span> Delhi To Amritsar
-            </div>
-            <div className="route-item">
-              <span>✓</span> Amritsar To Chandigarh
+            <div className="home-cta-actions">
+              <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Call Now</a>
+              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA SECTION */}
-      <section className="cta">
-        <h2>Plan Your Journey Today</h2>
-        <p>Call or WhatsApp us for instant booking & best deals</p>
-
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
-          <a href={`tel:${phoneNumber}`} className="btn btn-call">
-            📞 Book Now
-          </a>
-
-          <a
-            href={`https://wa.me/${phoneNumber}`}
-            className="btn btn-whatsapp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            💬 WhatsApp
-          </a>
-
-          <Link to="/admin" className="btn" style={{ background: "#64748b" }}>
-            🔒 Admin Login
-          </Link>
-        </div>
-      </section>
-
-      {/* FLOATING WHATSAPP */}
-      <a
-        href={`https://wa.me/${phoneNumber}`}
-        className="whatsapp-float"
-        target="_blank"
-        rel="noreferrer"
-      >
-        💬
-      </a>
+      {/* Floating WhatsApp */}
+      <a href={`https://wa.me/${PHONE}`} className="whatsapp-float" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">💬</a>
     </>
   );
 }
