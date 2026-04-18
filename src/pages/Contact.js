@@ -1,4 +1,6 @@
+import { Helmet } from "react-helmet-async";
 import bgIMG from "../Assets/bgIMG.jpg";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./Contact.css";
 
 const PHONE = "918894437637";
@@ -16,7 +18,7 @@ const CONTACT_CARDS = [
     bg: "#eff6ff",
   },
   {
-    icon: "💬",
+    icon: "whatsapp",
     title: "WhatsApp",
     subtitle: "Quick Response",
     value: PHONE_DISPLAY,
@@ -60,6 +62,11 @@ const FAQS = [
 function Contact() {
   return (
     <div className="contact-page">
+      <Helmet>
+        <title>Contact Us — TheKalkaTravels | +91 88944 37637</title>
+        <meta name="description" content="Contact TheKalkaTravels for taxi bookings. Call or WhatsApp +91 88944 37637. Available 24/7 for Kalka, Shimla, Manali, Delhi and all North India routes." />
+        <link rel="canonical" href="https://thekalkatravels.com/contact" />
+      </Helmet>
       {/* Hero */}
       <section className="contact-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="contact-hero-overlay" />
@@ -77,7 +84,9 @@ function Contact() {
             {CONTACT_CARDS.map((c, i) => (
               <div key={i} className="contact-card" style={{ "--card-color": c.color, "--card-bg": c.bg }}>
                 <div className="contact-card-icon" style={{ background: c.bg, color: c.color }}>
-                  {c.icon}
+                  {c.icon === "whatsapp"
+                    ? <img src={whatsappIcon} alt="WhatsApp" style={{ width: "32px", height: "32px", objectFit: "contain" }} />
+                    : c.icon}
                 </div>
                 <div className="contact-card-body">
                   <h3>{c.title}</h3>
@@ -124,7 +133,9 @@ function Contact() {
               </div>
               <div className="contact-quick-actions">
                 <a href={`tel:${PHONE}`} className="btn btn-primary">📞 Call Now</a>
-                <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+                <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">
+                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp
+                </a>
               </div>
             </div>
             <div className="contact-map-wrap">

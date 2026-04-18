@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import bgIMG from "../Assets/bgIMG.jpg";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./About.css";
 
 const PHONE = "918894437637";
@@ -31,6 +33,11 @@ const FEATURES = [
 function About() {
   return (
     <div className="about-page">
+      <Helmet>
+        <title>About Us — TheKalkaTravels | Trusted Since 1999</title>
+        <meta name="description" content="TheKalkaTravels has been providing reliable taxi and tour services from Kalka since 1999. Learn about our fleet, drivers, and commitment to safe travel across North India." />
+        <link rel="canonical" href="https://thekalkatravels.com/about" />
+      </Helmet>
       {/* Hero */}
       <section className="about-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="about-hero-overlay" />
@@ -119,7 +126,7 @@ function About() {
             <p>Join thousands of happy customers who trust TheKalkaTravels for their journeys</p>
             <div className="about-cta-btns">
               <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Book Now</a>
-              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
             </div>
           </div>
         </div>

@@ -10,10 +10,8 @@ const ICONS       = ["🚗", "🚙", "🚐", "🚌", "🏎️", "🚕"];
 const EMPTY = {
   name: "", category: "sedan", fuelType: "petrol",
   seatingCapacity: "", luggageCapacity: "",
-  finalPrice: "", originalPrice: "", kmCharges: "",
-  hasAC: true, roofCarrierAvailable: false,
-  roofCarrierPrice: "", cancellationPolicy: "before 6 hours",
-  offerCode: "", offerText: "", taxIncludedText: "+Toll & State Tax Included",
+  kmCharges: "", hasAC: true,
+  cancellationPolicy: "before 6 hours",
   icon: "🚗",
 };
 
@@ -61,37 +59,9 @@ function VehicleFormFields({ data, onChange, imgPreview, onImage }) {
 
       <div className="vf-row">
         <div className="form-group">
-          <label>Final Price (₹)</label>
-          <input className="form-input" type="number" min="0" value={data.finalPrice}
-            onChange={e => onChange("finalPrice", e.target.value)} placeholder="e.g., 1400" />
-        </div>
-        <div className="form-group">
-          <label>Original Price (₹)</label>
-          <input className="form-input" type="number" min="0" value={data.originalPrice}
-            onChange={e => onChange("originalPrice", e.target.value)} placeholder="e.g., 1500" />
-        </div>
-        <div className="form-group">
-          <label>Tax / Included Text</label>
-          <input className="form-input" value={data.taxIncludedText}
-            onChange={e => onChange("taxIncludedText", e.target.value)} placeholder="+Toll & State Tax Included" />
-        </div>
-      </div>
-
-      <div className="vf-row">
-        <div className="form-group">
           <label>Cancellation Policy</label>
           <input className="form-input" value={data.cancellationPolicy}
             onChange={e => onChange("cancellationPolicy", e.target.value)} placeholder="before 6 hours" />
-        </div>
-        <div className="form-group">
-          <label>Offer Code</label>
-          <input className="form-input" value={data.offerCode}
-            onChange={e => onChange("offerCode", e.target.value)} placeholder="e.g., SAVE10" />
-        </div>
-        <div className="form-group">
-          <label>Offer Text</label>
-          <input className="form-input" value={data.offerText}
-            onChange={e => onChange("offerText", e.target.value)} placeholder="e.g., 10% off" />
         </div>
       </div>
 
@@ -100,18 +70,6 @@ function VehicleFormFields({ data, onChange, imgPreview, onImage }) {
           <input type="checkbox" checked={data.hasAC} onChange={e => onChange("hasAC", e.target.checked)} />
           <span>AC Available</span>
         </label>
-        <label className="vf-toggle">
-          <input type="checkbox" checked={data.roofCarrierAvailable}
-            onChange={e => onChange("roofCarrierAvailable", e.target.checked)} />
-          <span>Roof Carrier</span>
-        </label>
-        {data.roofCarrierAvailable && (
-          <div className="form-group" style={{ flex: 1 }}>
-            <label>Roof Carrier Price</label>
-            <input className="form-input" value={data.roofCarrierPrice}
-              onChange={e => onChange("roofCarrierPrice", e.target.value)} placeholder="e.g., ₹500" />
-          </div>
-        )}
       </div>
 
       <div className="form-group">
@@ -197,8 +155,6 @@ export default function VehiclesAdmin() {
         ...form, name: form.name.trim(),
         seatingCapacity: Number(form.seatingCapacity) || 0,
         luggageCapacity: Number(form.luggageCapacity) || 0,
-        finalPrice: Number(form.finalPrice) || 0,
-        originalPrice: Number(form.originalPrice) || 0,
         imageUrl, publicId,
       });
       setForm(EMPTY); setImageFile(null); setImagePreview(null);
@@ -213,13 +169,8 @@ export default function VehiclesAdmin() {
     setEditForm({
       name: v.name || "", category: v.category || "sedan", fuelType: v.fuelType || "petrol",
       seatingCapacity: v.seatingCapacity || "", luggageCapacity: v.luggageCapacity || "",
-      finalPrice: v.finalPrice || "", originalPrice: v.originalPrice || "",
       kmCharges: v.kmCharges || "", hasAC: v.hasAC ?? true,
-      roofCarrierAvailable: v.roofCarrierAvailable || false,
-      roofCarrierPrice: v.roofCarrierPrice || "",
       cancellationPolicy: v.cancellationPolicy || "before 6 hours",
-      offerCode: v.offerCode || "", offerText: v.offerText || "",
-      taxIncludedText: v.taxIncludedText || "+Toll & State Tax Included",
       icon: v.icon || "🚗",
     });
     setEditImagePreview(v.imageUrl || null);
@@ -241,8 +192,6 @@ export default function VehiclesAdmin() {
         ...editForm, name: editForm.name.trim(),
         seatingCapacity: Number(editForm.seatingCapacity) || 0,
         luggageCapacity: Number(editForm.luggageCapacity) || 0,
-        finalPrice: Number(editForm.finalPrice) || 0,
-        originalPrice: Number(editForm.originalPrice) || 0,
         imageUrl, publicId,
       });
       setEditId(null);
@@ -304,26 +253,6 @@ export default function VehiclesAdmin() {
                   {v.seatingCapacity ? <span className="vf-chip">👥 {v.seatingCapacity}</span> : null}
                   {v.luggageCapacity ? <span className="vf-chip">🧳 {v.luggageCapacity}</span> : null}
                 </div>
-                {v.finalPrice ? (
-                  <div style={{ margin: "4px 0" }}>
-                    <p style={{ color:"#fbbf24", fontWeight:"900", fontSize:"20px", margin:"0 0 2px" }}>
-                      ₹{Number(v.finalPrice).toLocaleString("en-IN")}
-                      {v.roofCarrierAvailable && v.roofCarrierPrice
-                        ? <span style={{ fontSize:"13px", color:"rgba(255,255,255,0.4)", fontWeight:"500", marginLeft:"6px" }}>base</span>
-                        : null}
-                    </p>
-                    {v.roofCarrierAvailable && v.roofCarrierPrice && (
-                      <>
-                        <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.4)", margin:"2px 0" }}>
-                          + ₹{Number(v.roofCarrierPrice).toLocaleString("en-IN")} roof carrier
-                        </p>
-                        <p style={{ color:"#34d399", fontWeight:"800", fontSize:"16px", margin:"4px 0 0" }}>
-                          Total: ₹{(Number(v.finalPrice) + Number(v.roofCarrierPrice)).toLocaleString("en-IN")}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                ) : null}
                 {v.kmCharges  ? <p className="destination-desc" style={{ margin:"2px 0", fontSize:"13px" }}>📍 {v.kmCharges}</p> : null}
                 {v.cancellationPolicy ? <p className="destination-desc" style={{ fontSize:"12px" }}>🔄 {v.cancellationPolicy}</p> : null}
                 <div className="card-footer">

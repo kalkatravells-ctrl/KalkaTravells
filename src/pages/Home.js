@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import { getDestinations } from "../firebase/destinations";
 import { getGallery } from "../firebase/gallery";
 import { getVehicles } from "../firebase/vehicles";
@@ -74,6 +76,13 @@ function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>TheKalkaTravels — Taxi & Tour Services from Kalka | North India</title>
+        <meta name="description" content="Reliable taxi and tour services from Kalka since 1999. Book cabs for Shimla, Manali, Delhi, Chandigarh, Dharamshala and all North India destinations. Call +91 88944 37637." />
+        <meta name="keywords" content="Kalka taxi, Kalka to Shimla cab, Kalka to Manali taxi, North India tour, outstation cab Kalka, TheKalkaTravels" />
+        <link rel="canonical" href="https://thekalkatravels.com/" />
+      </Helmet>
+
       {/* ===== HERO ===== */}
       <section className="home-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="home-hero-overlay" />
@@ -83,7 +92,7 @@ function Home() {
           <p>Premium taxi & tour services across North India. Safe, comfortable, and affordable travel with experienced drivers.</p>
           <div className="home-hero-actions">
             <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Book Now</a>
-            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
           </div>
           <div className="home-hero-stats">
             {STATS.map((s, i) => (
@@ -115,9 +124,6 @@ function Home() {
                   </div>
                 )}
                 <div className="vcn-header">
-                  <div className="vcn-icon-wrap" style={{ background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.2)" }}>
-                    <span className="vcn-icon">{v.icon || "🚗"}</span>
-                  </div>
                   <span className="vcn-badge">{v.category || v.type || "Vehicle"}</span>
                 </div>
                 <h3 className="vcn-name">{v.name}</h3>
@@ -163,26 +169,6 @@ function Home() {
                   }
                 </div>
                 <div className="vcn-footer">
-                  <div>
-                    <div className="vcn-price">
-                      {v.finalPrice ? `₹${Number(v.finalPrice).toLocaleString("en-IN")}` : v.price || "—"}
-                      {v.roofCarrierAvailable && v.roofCarrierPrice
-                        ? <span style={{ fontSize:"13px", color:"rgba(255,255,255,0.4)", fontWeight:"500", marginLeft:"6px" }}>base</span>
-                        : null}
-                    </div>
-                    {v.roofCarrierAvailable && v.roofCarrierPrice ? (
-                      <>
-                        <div style={{ fontSize:"11px", color:"rgba(255,255,255,0.35)", margin:"2px 0" }}>
-                          + ₹{Number(v.roofCarrierPrice).toLocaleString("en-IN")} roof carrier
-                        </div>
-                        <div style={{ color:"#34d399", fontWeight:"800", fontSize:"15px", marginTop:"2px" }}>
-                          Total: ₹{(Number(v.finalPrice) + Number(v.roofCarrierPrice)).toLocaleString("en-IN")}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="vcn-price-note">Starting price</div>
-                    )}
-                  </div>
                   <a href={`tel:${PHONE}`} className="btn vcn-btn">Book Now</a>
                 </div>
               </div>
@@ -284,14 +270,16 @@ function Home() {
             </div>
             <div className="home-cta-actions">
               <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Call Now</a>
-              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Floating WhatsApp */}
-      <a href={`https://wa.me/${PHONE}`} className="whatsapp-float" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">💬</a>
+      <a href={`https://wa.me/${PHONE}`} className="whatsapp-float" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+        <img src={whatsappIcon} alt="WhatsApp" style={{ width: "32px", height: "32px", objectFit: "contain" }} />
+      </a>
     </>
   );
 }

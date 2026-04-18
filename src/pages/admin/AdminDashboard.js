@@ -6,6 +6,7 @@ import { auth, db } from "../../firebase";
 import DestinationsAdmin from "./DestinationsAdmin";
 import GalleryAdmin from "./GalleryAdmin";
 import VehiclesAdmin from "./VehiclesAdmin";
+import RoutesAdmin from "./RoutesAdmin";
 import "./AdminDashboard.css";
 
 function getGreeting() {
@@ -20,6 +21,7 @@ const NAV = [
   { id: "destinations", label: "Destinations", sub: "Manage Locations",   icon: <IcoPin /> },
   { id: "gallery",      label: "Gallery",      sub: "Manage Images",      icon: <IcoPhoto /> },
   { id: "vehicles",     label: "Vehicles",     sub: "Manage Fleet",       icon: <IcoCar /> },
+  { id: "routes",       label: "Routes",       sub: "Manage Pricing",     icon: <IcoRoute /> },
 ];
 
 function IcoDash()  { return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>; }
@@ -29,11 +31,12 @@ function IcoCar()   { return <svg width="18" height="18" viewBox="0 0 24 24" fil
 function IcoOut()   { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>; }
 function IcoGlobe() { return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>; }
 function IcoMenu()  { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>; }
+function IcoRoute() { return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>; }
 
 export default function AdminDashboard() {
   const [tab, setTab]               = useState("overview");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [stats, setStats]           = useState({ destinations: 0, gallery: 0, vehicles: 0 });
+  const [stats, setStats] = useState({ destinations: 0, gallery: 0, vehicles: 0, routes: 0 });
   const [loading, setLoading]       = useState(true);
   const [userName, setUserName]     = useState("Kalka Travels");
   const navigate = useNavigate();
@@ -49,12 +52,13 @@ export default function AdminDashboard() {
   useEffect(() => {
     (async () => {
       try {
-        const [d, g, v] = await Promise.all([
+        const [d, g, v, r] = await Promise.all([
           getDocs(collection(db, "destinations")),
           getDocs(collection(db, "gallery")),
           getDocs(collection(db, "vehicles")),
+          getDocs(collection(db, "routes")),
         ]);
-        setStats({ destinations: d.size, gallery: g.size, vehicles: v.size });
+        setStats({ destinations: d.size, gallery: g.size, vehicles: v.size, routes: r.size });
       } catch (e) { console.warn(e); }
       finally { setLoading(false); }
     })();
@@ -259,6 +263,20 @@ export default function AdminDashboard() {
                 <span className="ad-badge">{stats.gallery} images</span>
               </div>
               <GalleryAdmin />
+            </div>
+          )}
+
+          {/* ══ ROUTES ══ */}
+          {tab === "routes" && (
+            <div>
+              <div className="ad-tab-header">
+                <div>
+                  <h2 className="ad-tab-title">Manage Routes</h2>
+                  <p className="ad-tab-sub">Add routes with vehicle and pricing — shown on the website.</p>
+                </div>
+                <span className="ad-badge">{stats.routes} routes</span>
+              </div>
+              <RoutesAdmin />
             </div>
           )}
 

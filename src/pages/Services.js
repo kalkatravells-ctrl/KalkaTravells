@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { Helmet } from "react-helmet-async";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import { db } from "../firebase";
 import bgIMG from "../Assets/bgIMG.jpg";
 import "./Services.css";
@@ -108,6 +110,11 @@ function Services() {
 
   return (
     <div className="services-container">
+      <Helmet>
+        <title>Services & Fleet — TheKalkaTravels | Sedan, SUV, Innova, Tempo</title>
+        <meta name="description" content="Book Sedan, SUV, Innova Crysta, Tempo Traveller and Volvo Bus from TheKalkaTravels. Outstation taxi, pick & drop, and tour packages across North India." />
+        <link rel="canonical" href="https://thekalkatravels.com/services" />
+      </Helmet>
       {/* HERO SECTION */}
       <section className="services-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="hero-overlay"></div>
@@ -131,14 +138,22 @@ function Services() {
             {(loading ? vehicleCategories : vehicles).map((vehicle, index) => (
               <div key={index} className="vehicle-card">
                 <div className="vehicle-image-placeholder">
-                  {vehicle.icon ? (
-                    <span className="vehicle-icon">{vehicle.icon}</span>
-                  ) : vehicle.image && !vehicle.image.startsWith("http") ? (
-                    <span className="vehicle-icon">🚗</span>
-                  ) : vehicle.image ? (
-                    <img src={vehicle.image} alt={vehicle.name} onError={e => { e.target.style.display="none"; e.target.parentElement.innerHTML="<span class='vehicle-icon'>🚗</span>"; }} />
+                  {vehicle.imageUrl ? (
+                    <img
+                      src={vehicle.imageUrl}
+                      alt={vehicle.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "12px" }}
+                      onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "<span class='vehicle-icon'>🚗</span>"; }}
+                    />
+                  ) : vehicle.image && vehicle.image.startsWith("http") ? (
+                    <img
+                      src={vehicle.image}
+                      alt={vehicle.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "12px" }}
+                      onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "<span class='vehicle-icon'>🚗</span>"; }}
+                    />
                   ) : (
-                    <span className="vehicle-icon">🚗</span>
+                    <span className="vehicle-icon">{vehicle.icon || "🚗"}</span>
                   )}
                 </div>
                 <h3 className="vehicle-name">{vehicle.name}</h3>
@@ -268,7 +283,7 @@ function Services() {
                   rel="noreferrer"
                   className="btn btn-whatsapp"
                 >
-                  💬 WhatsApp Now
+                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp Now
                 </a>
                 <a href={`tel:${phoneNumber}`} className="btn btn-call">
                   📞 Call Us Today

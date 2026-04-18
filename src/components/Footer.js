@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 
 const PHONE = "918894437637";
 const PHONE_DISPLAY = "+91 88944 37637";
@@ -34,7 +35,7 @@ function Footer() {
                   gap: "6px"
                 }}
               >
-                💬 WhatsApp
+                <img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp
               </a>
               <a
                 href={`tel:${PHONE}`}
@@ -69,7 +70,7 @@ function Footer() {
           <div className="footer-section">
             <h3 className="footer-title">Contact Us</h3>
             <a href={`tel:${PHONE}`} className="footer-link">📞 {PHONE_DISPLAY}</a>
-            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="footer-link">💬 WhatsApp Us</a>
+            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="footer-link"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "16px", height: "16px", objectFit: "contain", verticalAlign: "middle", marginRight: "6px" }} />WhatsApp Us</a>
             <p className="footer-link">📍 Kalka, Himachal Pradesh</p>
             <a href="mailto:info@kalkatravels.com" className="footer-link">📧 info@kalkatravels.com</a>
           </div>
@@ -77,6 +78,9 @@ function Footer() {
 
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} TheKalkaTravels. All Rights Reserved. | Made with ❤️ in Himachal Pradesh</p>
+          <Link to="/admin" style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)", marginTop: "8px", display: "inline-block", textDecoration: "none" }}>
+            🔒 Admin Login
+          </Link>
         </div>
       </div>
 
@@ -87,7 +91,7 @@ function Footer() {
         className="whatsapp-float"
         aria-label="Chat on WhatsApp"
       >
-        💬
+        <img src={whatsappIcon} alt="WhatsApp" style={{ width: "32px", height: "32px", objectFit: "contain" }} />
       </a>
     </footer>
   );

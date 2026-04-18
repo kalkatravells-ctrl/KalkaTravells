@@ -127,7 +127,7 @@
 
 .vehicle-image-placeholder {
   width: 100%;
-  height: 100px;
+  height: 160px;
   background: linear-gradient(135deg, #eff6ff, #dbeafe);
   border-radius: 12px;
   display: flex;
@@ -135,6 +135,7 @@
   justify-content: center;
   margin-bottom: 14px;
   border: 1px solid #bfdbfe;
+  overflow: hidden;
 }
 
 .vehicle-icon { font-size: 44px; }

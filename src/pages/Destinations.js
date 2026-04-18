@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { Helmet } from "react-helmet-async";
 import { db } from "../firebase";
 import bgIMG from "../Assets/bgIMG.jpg";
+import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./Destinations.css";
 
 const PHONE = "918894437637";
@@ -71,6 +73,11 @@ function Destinations() {
 
   return (
     <div className="destinations-container">
+      <Helmet>
+        <title>Destinations — TheKalkaTravels | Shimla, Manali, Delhi & More</title>
+        <meta name="description" content="Explore popular destinations covered by TheKalkaTravels — Shimla, Manali, Dharamshala, Dalhousie, Amritsar, Delhi and more. Book your cab today." />
+        <link rel="canonical" href="https://thekalkatravels.com/destinations" />
+      </Helmet>
       {/* Hero */}
       <section className="destinations-hero" style={{ backgroundImage: `url(${bgIMG})` }}>
         <div className="destinations-hero-overlay" />
@@ -118,7 +125,7 @@ function Destinations() {
           <p>We cover all major cities and tourist spots across North India. Contact us for custom routes.</p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
             <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Call Us</a>
-            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">💬 WhatsApp</a>
+            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
           </div>
         </div>
       </section>
