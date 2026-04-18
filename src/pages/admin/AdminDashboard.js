@@ -35,7 +35,16 @@ export default function AdminDashboard() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [stats, setStats]           = useState({ destinations: 0, gallery: 0, vehicles: 0 });
   const [loading, setLoading]       = useState(true);
+  const [userName, setUserName]     = useState("Kalka Travels");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      if (user.displayName) setUserName(user.displayName);
+      else if (user.email) setUserName(user.email.split("@")[0]);
+    }
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -103,7 +112,7 @@ export default function AdminDashboard() {
           <button className="ad-hamburger" onClick={() => setMobileOpen(o => !o)}><IcoMenu /></button>
           <div className="ad-topbar-left">
             <p className="ad-topbar-date">{today}</p>
-            <h1 className="ad-topbar-title">{getGreeting()}, Admin 👋</h1>
+            <h1 className="ad-topbar-title">{getGreeting()}, {userName} 👋</h1>
           </div>
           <div className="ad-live"><span className="ad-live-dot" /> Live Updates</div>
         </header>

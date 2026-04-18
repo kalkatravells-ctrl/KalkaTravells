@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { getDestinations } from "../firebase/destinations";
+import { getGallery } from "../firebase/gallery";
+import { getVehicles } from "../firebase/vehicles";
 import bgIMG from "../Assets/bgIMG.jpg";
-import { db } from "../firebase";
 import "./Home.css";
 
 const PHONE = "918894437637";
@@ -45,14 +46,14 @@ function Home() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [destSnap, gallerySnap, vehicleSnap] = await Promise.all([
-          getDocs(collection(db, "destinations")),
-          getDocs(collection(db, "gallery")),
-          getDocs(collection(db, "vehicles")),
+        const [destinations, gallery, vehicles] = await Promise.all([
+          getDestinations(),
+          getGallery(),
+          getVehicles(),
         ]);
-        setDestinations(destSnap.docs.map(d => ({ id: d.id, ...d.data() })));
-        setGalleryImages(gallerySnap.docs.map(d => ({ id: d.id, ...d.data() })).slice(0, 8));
-        setVehicles(vehicleSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+        setDestinations(destinations);
+        setGalleryImages(gallery.slice(0, 8));
+        setVehicles(vehicles);
       } catch (err) {
         console.warn("Failed to load data", err);
       }
@@ -165,8 +166,22 @@ function Home() {
                   <div>
                     <div className="vcn-price">
                       {v.finalPrice ? `₹${Number(v.finalPrice).toLocaleString("en-IN")}` : v.price || "—"}
+                      {v.roofCarrierAvailable && v.roofCarrierPrice
+                        ? <span style={{ fontSize:"13px", color:"rgba(255,255,255,0.4)", fontWeight:"500", marginLeft:"6px" }}>base</span>
+                        : null}
                     </div>
-                    <div className="vcn-price-note">Starting price</div>
+                    {v.roofCarrierAvailable && v.roofCarrierPrice ? (
+                      <>
+                        <div style={{ fontSize:"11px", color:"rgba(255,255,255,0.35)", margin:"2px 0" }}>
+                          + ₹{Number(v.roofCarrierPrice).toLocaleString("en-IN")} roof carrier
+                        </div>
+                        <div style={{ color:"#34d399", fontWeight:"800", fontSize:"15px", marginTop:"2px" }}>
+                          Total: ₹{(Number(v.finalPrice) + Number(v.roofCarrierPrice)).toLocaleString("en-IN")}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="vcn-price-note">Starting price</div>
+                    )}
                   </div>
                   <a href={`tel:${PHONE}`} className="btn vcn-btn">Book Now</a>
                 </div>

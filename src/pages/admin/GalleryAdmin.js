@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../../firebase";
+import { getGallery, addGalleryImage, deleteGalleryImage } from "../../firebase/gallery";
 import { uploadImageToCloudinary } from "../../utils/cloudinaryService";
 import "./AdminPanel.css";
 
@@ -24,8 +16,7 @@ export default function GalleryAdmin() {
     setError("");
 
     try {
-      const snapshot = await getDocs(collection(db, "gallery"));
-      setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setItems(await getGallery());
     } catch (err) {
       console.error("Failed to load gallery items", err);
       setError(err.message || "Failed to load gallery items.");
@@ -65,12 +56,11 @@ export default function GalleryAdmin() {
       // Upload to Cloudinary
       const imageData = await uploadImageToCloudinary(file, "gallery");
 
-      // Save metadata to Firestore
-      await addDoc(collection(db, "gallery"), {
+      // Save metadata via service
+      await addGalleryImage({
         url: imageData.url,
         publicId: imageData.publicId,
         name: file.name,
-        createdAt: serverTimestamp(),
       });
 
       setFile(null);
@@ -94,8 +84,8 @@ export default function GalleryAdmin() {
     setSuccessMessage("");
 
     try {
-      // Delete from Firestore (image stays on Cloudinary - can add backend delete if needed)
-      await deleteDoc(doc(db, "gallery", item.id));
+      // Delete from Firestore via service
+      await deleteGalleryImage(item.id);
       setSuccessMessage("Image deleted successfully!");
       setTimeout(() => setSuccessMessage(""), 3000);
       await fetchItems();

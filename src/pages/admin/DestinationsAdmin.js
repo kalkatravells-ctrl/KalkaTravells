@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../../firebase";
+import { addDestination, getDestinations, deleteDestination } from "../../firebase/destinations";
 import { uploadImageToCloudinary } from "../../utils/cloudinaryService";
 import "./AdminPanel.css";
 
@@ -26,10 +18,7 @@ export default function DestinationsAdmin() {
     setError("");
 
     try {
-      const snapshot = await getDocs(collection(db, "destinations"));
-      setDestinations(
-        snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-      );
+      setDestinations(await getDestinations());
     } catch (err) {
       console.error("Failed to fetch destinations", err);
       setError(err.message || "Failed to load destinations.");
@@ -69,13 +58,12 @@ export default function DestinationsAdmin() {
       // Upload image to Cloudinary
       const imageData = await uploadImageToCloudinary(imageFile, "destinations");
 
-      // Save to Firestore with Cloudinary URL
-      await addDoc(collection(db, "destinations"), {
+      // Save to Firestore via service
+      await addDestination({
         name: name.trim(),
         desc: desc.trim(),
         imageUrl: imageData.url,
         publicId: imageData.publicId,
-        createdAt: serverTimestamp(),
       });
 
       setName("");
@@ -100,7 +88,7 @@ export default function DestinationsAdmin() {
     setSuccessMessage("");
 
     try {
-      await deleteDoc(doc(db, "destinations", id));
+      await deleteDestination(id);
       setSuccessMessage("Destination deleted successfully!");
       setTimeout(() => setSuccessMessage(""), 3000);
       await fetchDestinations();

@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  collection, addDoc, getDocs, deleteDoc,
-  doc, updateDoc, serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../../firebase";
+import { getVehicles, addVehicle, updateVehicle, deleteVehicle } from "../../firebase/vehicles";
 import { uploadImageToCloudinary } from "../../utils/cloudinaryService";
 import "./AdminPanel.css";
 
@@ -168,8 +164,7 @@ export default function VehiclesAdmin() {
   const fetchVehicles = async () => {
     setLoading(true);
     try {
-      const snap = await getDocs(collection(db, "vehicles"));
-      setVehicles(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setVehicles(await getVehicles());
     } catch (e) { setError(e.message); }
     finally { setLoading(false); }
   };
@@ -198,13 +193,13 @@ export default function VehiclesAdmin() {
         const d = await uploadImageToCloudinary(imageFile, "vehicles");
         imageUrl = d.url; publicId = d.publicId;
       }
-      await addDoc(collection(db, "vehicles"), {
+      await addVehicle({
         ...form, name: form.name.trim(),
         seatingCapacity: Number(form.seatingCapacity) || 0,
         luggageCapacity: Number(form.luggageCapacity) || 0,
         finalPrice: Number(form.finalPrice) || 0,
         originalPrice: Number(form.originalPrice) || 0,
-        imageUrl, publicId, createdAt: serverTimestamp(),
+        imageUrl, publicId,
       });
       setForm(EMPTY); setImageFile(null); setImagePreview(null);
       setSuccess("Vehicle added!"); setTimeout(() => setSuccess(""), 3000);
@@ -242,7 +237,7 @@ export default function VehiclesAdmin() {
         const d = await uploadImageToCloudinary(editImageFile, "vehicles");
         imageUrl = d.url; publicId = d.publicId;
       }
-      await updateDoc(doc(db, "vehicles", editId), {
+      await updateVehicle(editId, {
         ...editForm, name: editForm.name.trim(),
         seatingCapacity: Number(editForm.seatingCapacity) || 0,
         luggageCapacity: Number(editForm.luggageCapacity) || 0,
@@ -260,7 +255,7 @@ export default function VehiclesAdmin() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this vehicle?")) return;
     try {
-      await deleteDoc(doc(db, "vehicles", id));
+      await deleteVehicle(id);
       setSuccess("Deleted!"); setTimeout(() => setSuccess(""), 2000);
       await fetchVehicles();
     } catch (e) { setError(e.message); }
@@ -309,7 +304,26 @@ export default function VehiclesAdmin() {
                   {v.seatingCapacity ? <span className="vf-chip">👥 {v.seatingCapacity}</span> : null}
                   {v.luggageCapacity ? <span className="vf-chip">🧳 {v.luggageCapacity}</span> : null}
                 </div>
-                {v.finalPrice ? <p style={{ color:"#fbbf24", fontWeight:"800", fontSize:"18px", margin:"4px 0" }}>₹{v.finalPrice}</p> : null}
+                {v.finalPrice ? (
+                  <div style={{ margin: "4px 0" }}>
+                    <p style={{ color:"#fbbf24", fontWeight:"900", fontSize:"20px", margin:"0 0 2px" }}>
+                      ₹{Number(v.finalPrice).toLocaleString("en-IN")}
+                      {v.roofCarrierAvailable && v.roofCarrierPrice
+                        ? <span style={{ fontSize:"13px", color:"rgba(255,255,255,0.4)", fontWeight:"500", marginLeft:"6px" }}>base</span>
+                        : null}
+                    </p>
+                    {v.roofCarrierAvailable && v.roofCarrierPrice && (
+                      <>
+                        <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.4)", margin:"2px 0" }}>
+                          + ₹{Number(v.roofCarrierPrice).toLocaleString("en-IN")} roof carrier
+                        </p>
+                        <p style={{ color:"#34d399", fontWeight:"800", fontSize:"16px", margin:"4px 0 0" }}>
+                          Total: ₹{(Number(v.finalPrice) + Number(v.roofCarrierPrice)).toLocaleString("en-IN")}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                ) : null}
                 {v.kmCharges  ? <p className="destination-desc" style={{ margin:"2px 0", fontSize:"13px" }}>📍 {v.kmCharges}</p> : null}
                 {v.cancellationPolicy ? <p className="destination-desc" style={{ fontSize:"12px" }}>🔄 {v.cancellationPolicy}</p> : null}
                 <div className="card-footer">
