@@ -8,6 +8,8 @@
   background-position: center;
   overflow: hidden;
   animation: slowZoom 20s ease-in-out infinite alternate;
+  will-change: background-size;
+  transform: translateZ(0);
 }
 
 .home-hero:hover {
@@ -17,6 +19,20 @@
 @keyframes slowZoom {
   0%   { background-size: 120%; }
   100% { background-size: 100%; }
+}
+
+/* Static background on mobile */
+@media (max-width: 768px) {
+  .home-hero {
+    background-size: cover !important;
+    background-position: center center;
+    background-attachment: scroll;
+    animation: none !important;
+    will-change: auto;
+  }
+  .home-hero:hover {
+    background-size: cover !important;
+  }
 }
 
 .home-hero-overlay {
