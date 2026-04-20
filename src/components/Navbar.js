@@ -35,10 +35,19 @@ function Navbar() {
   // Close menu on navigation
   useEffect(() => { setOpen(false); }, [location]);
 
-  // Prevent body scroll when menu open
+  // Prevent body scroll when menu open & hide WhatsApp float
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("menu-open");
+    } else {
+      document.body.style.overflow = "";
+      document.body.classList.remove("menu-open");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove("menu-open");
+    };
   }, [open]);
 
   const isActive = (path) =>
