@@ -6,7 +6,7 @@ import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./Destinations.css";
 
-const PHONE = "918894437637";
+const PHONE = "919815948989";
 
 const fallbackDestinations = [
   { name: "Chandigarh", desc: "The City Beautiful — clean, planned, and vibrant.", imageUrl: "https://images.unsplash.com/photo-1595928642581-f50f4f3453a5?auto=format&fit=crop&w=800&q=75" },

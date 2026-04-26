@@ -3,8 +3,8 @@ import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./Contact.css";
 
-const PHONE = "918894437637";
-const PHONE_DISPLAY = "+91 88944 37637";
+const PHONE = "919815948989";
+const PHONE_DISPLAY = "+91 98159 48989";
 
 const CONTACT_CARDS = [
   {

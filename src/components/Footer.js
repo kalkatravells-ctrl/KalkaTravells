@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
+import logoLB from "../Assets/LOGO-LB.png";
 
-const PHONE = "918894437637";
-const PHONE_DISPLAY = "+91 88944 37637";
+const PHONE = "919815948989";
+const PHONE_DISPLAY = "+91 98159 48989";
 
 function Footer() {
   const location = useLocation();
@@ -77,7 +78,11 @@ function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} TheKalkaTravels. All Rights Reserved. | Made with ❤️ in Himachal Pradesh</p>
+          <p>© {new Date().getFullYear()} TheKalkaTravels. All Rights Reserved.</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px", justifyContent: "center" }}>
+            <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>Designed by</span>
+            <img src={logoLB} alt="LOGO-LB" style={{ height: "28px", objectFit: "contain", opacity: 0.7 }} />
+          </div>
           <Link to="/admin" style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)", marginTop: "8px", display: "inline-block", textDecoration: "none" }}>
             🔒 Admin Login
           </Link>

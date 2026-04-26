@@ -4,7 +4,7 @@ import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./About.css";
 
-const PHONE = "918894437637";
+const PHONE = "919815948989";
 
 const TEAM_VALUES = [
   { icon: "🎯", title: "Our Mission", desc: "To provide safe, comfortable, and affordable travel experiences across North India with professional drivers and well-maintained vehicles." },

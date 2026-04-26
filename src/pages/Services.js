@@ -106,7 +106,7 @@ function Services() {
     loadVehicles();
   }, []);
 
-  const phoneNumber = "918894437637";
+  const phoneNumber = "919815948989";
 
   return (
     <div className="services-container">
