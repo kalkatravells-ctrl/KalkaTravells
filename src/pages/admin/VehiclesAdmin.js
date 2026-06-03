@@ -302,24 +302,6 @@ export default function VehiclesAdmin() {
         </div>
       )}
 
-      <style>{`
-        .vf-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .vf-toggles { display: flex; align-items: center; gap: 24px; margin: 8px 0 16px; flex-wrap: wrap; }
-        .vf-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #9ca3af; font-weight: 500; }
-        .vf-toggle input { width: 16px; height: 16px; accent-color: #f97316; cursor: pointer; }
-        .vf-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #9ca3af; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; text-transform: capitalize; }
-        .vf-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .vf-modal { background: #0f1420; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; width: 100%; max-width: 860px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 24px 80px rgba(0,0,0,0.6); }
-        .vf-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .vf-modal-header h3 { font-size: 18px; font-weight: 700; color: white; margin: 0; }
-        .vf-modal-close { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #9ca3af; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-        .vf-modal-close:hover { background: rgba(239,68,68,0.15); color: #f87171; }
-        .vf-modal-body { overflow-y: auto; padding: 24px; }
-        .vf-modal-body::-webkit-scrollbar { width: 4px; }
-        .vf-modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        @media (max-width: 768px) { .vf-row { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .vf-row { grid-template-columns: 1fr; } }
-      `}</style>
     </div>
   );
 }

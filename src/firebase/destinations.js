@@ -4,7 +4,7 @@
  */
 import {
   collection, getDocs, addDoc, deleteDoc,
-  doc, serverTimestamp,
+  doc, updateDoc, serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./config";
 
@@ -15,11 +15,19 @@ export const getDestinations = async () => {
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 };
 
-export const addDestination = async ({ name, desc, imageUrl, publicId }) => {
+export const addDestination = async ({ name, desc, state, isPopular, isHolyPlace, imageUrl, publicId }) => {
   return addDoc(collection(db, COL), {
-    name, desc, imageUrl, publicId,
+    name, desc,
+    state: state || null,
+    isPopular: isPopular || false,
+    isHolyPlace: isHolyPlace || false,
+    imageUrl, publicId,
     createdAt: serverTimestamp(),
   });
+};
+
+export const updateDestination = async (id, data) => {
+  return updateDoc(doc(db, COL, id), data);
 };
 
 export const deleteDestination = async (id) => {
