@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { db } from "../firebase/config";
+import { makeSlug } from "./RouteDetail";
 import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import "./Routes.css";
@@ -120,7 +122,12 @@ export default function RoutesPage() {
           {!loading && filtered.length > 0 && (
             <div className="routes-cards-grid">
               {filtered.map((r) => (
-                <div key={r.id} className="route-card">
+                <Link
+                  key={r.id}
+                  to={`/routes/${makeSlug(r.from, r.to)}`}
+                  className="route-card"
+                  style={{ textDecoration: "none" }}
+                >
                   <div className="route-card-header">
                     <span className="route-vehicle-badge">{r.vehicleName}</span>
                     {r.duration && <span className="route-duration">⏱ {r.duration}</span>}
@@ -145,21 +152,18 @@ export default function RoutesPage() {
                   </div>
 
                   <div className="route-card-footer">
-                    <div className="route-price">
-                      <span className="route-price-label">Starting from</span>
-                      <span className="route-price-value">₹{Number(r.price).toLocaleString("en-IN")}</span>
-                    </div>
                     <a
                       href={bookMsg(r)}
                       target="_blank"
                       rel="noreferrer"
                       className="route-book-btn"
+                      onClick={e => e.stopPropagation()}
                     >
                       <img src={whatsappIcon} alt="WhatsApp" style={{ width: "16px", height: "16px", objectFit: "contain" }} />
                       Book Now
                     </a>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

@@ -72,7 +72,7 @@ function Footer() {
             <h3 className="footer-title">Contact Us</h3>
             <a href={`tel:${PHONE}`} className="footer-link">📞 {PHONE_DISPLAY}</a>
             <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="footer-link"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "16px", height: "16px", objectFit: "contain", verticalAlign: "middle", marginRight: "6px" }} />WhatsApp Us</a>
-            <p className="footer-link">📍 Kalka, Himachal Pradesh</p>
+            <p className="footer-link">📍 Chandigarh, Punjab</p>
             <a href="mailto:info@kalkatravels.com" className="footer-link">📧 info@kalkatravels.com</a>
           </div>
         </div>

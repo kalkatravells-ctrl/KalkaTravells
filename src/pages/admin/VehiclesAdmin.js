@@ -4,7 +4,7 @@ import { uploadImageToCloudinary } from "../../utils/cloudinaryService";
 import "./AdminPanel.css";
 
 const CATEGORIES = ["sedan", "suv", "traveller", "bus", "luxury", "hatchback"];
-const FUEL_TYPES  = ["petrol", "diesel", "cng", "electric"];
+const FUEL_TYPES  = ["petrol", "diesel", "cng", "petrol/cng", "petrol/diesel", "electric"];
 const ICONS       = ["🚗", "🚙", "🚐", "🚌", "🏎️", "🚕"];
 
 const EMPTY = {

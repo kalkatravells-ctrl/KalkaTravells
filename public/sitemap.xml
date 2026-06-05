@@ -1,40 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://kalkatravells.in/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <!-- Main Pages -->
+  <url><loc>https://kalkatravells.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://kalkatravells.in/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/services</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/destinations</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://kalkatravells.in/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Chandigarh Routes -->
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-shimla</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-manali</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-dalhousie</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kangra</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-palampur</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kullu</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kasol</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-bir-billing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-spiti-valley</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-chamba</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-mandi</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-solan</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kinnaur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-narkanda</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kufri</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-srinagar</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-gulmarg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-pahalgam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-sonamarg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-patnitop</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-vaishno-devi</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-kedarnath</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-badrinath</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-haridwar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-rishikesh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/chandigarh-to-golden-temple</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://kalkatravells.in/services</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- Delhi Routes -->
+  <url><loc>https://kalkatravells.in/routes/delhi-to-shimla</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-manali</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-dalhousie</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-kangra</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-kasol</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-bir-billing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-spiti-valley</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-dehradun</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-mussoorie</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-haridwar</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-rishikesh</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-nainital</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-auli</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-lansdowne</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-chopta</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-munsiyari</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-jim-corbett</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-kedarnath</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-badrinath</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-gangotri</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-yamunotri</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-srinagar</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-vaishno-devi</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/delhi-to-golden-temple</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://kalkatravells.in/destinations</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- Amritsar Routes -->
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-dalhousie</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-kangra</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-palampur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-pathankot</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-jammu</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-vaishno-devi</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-patnitop</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-srinagar</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-gulmarg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-pahalgam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-sonamarg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/amritsar-to-chandigarh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://kalkatravells.in/routes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- Jammu Routes -->
+  <url><loc>https://kalkatravells.in/routes/jammu-to-vaishno-devi</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-shiv-khori</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-patnitop</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-srinagar</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-gulmarg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-pahalgam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-sonamarg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-doodhpathri</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-yusmarg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-amarnath</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jammu-to-amritsar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://kalkatravells.in/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Pathankot Routes -->
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-dalhousie</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-kangra</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-palampur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-chamba</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-bir-billing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/pathankot-to-manali</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Punjab City Routes -->
+  <url><loc>https://kalkatravells.in/routes/ludhiana-to-amritsar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/ludhiana-to-chandigarh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/ludhiana-to-shimla</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/ludhiana-to-manali</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jalandhar-to-amritsar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jalandhar-to-pathankot</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jalandhar-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jalandhar-to-dalhousie</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/jalandhar-to-jammu</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/mohali-to-shimla</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/mohali-to-manali</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/mohali-to-dharamshala</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kalkatravells.in/routes/patiala-to-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/patiala-to-shimla</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/patiala-to-manali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/bathinda-to-amritsar</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kalkatravells.in/routes/bathinda-to-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
 </urlset>

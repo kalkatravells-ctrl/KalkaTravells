@@ -13,7 +13,7 @@ const TEAM_VALUES = [
 ];
 
 const MILESTONES = [
-  { year: "1999", event: "Founded in Kalka, HP" },
+  { year: "1999", event: "Founded in Chandigarh" },
   { year: "2005", event: "Expanded to 20+ vehicles" },
   { year: "2012", event: "Launched outstation services" },
   { year: "2018", event: "10,000+ happy customers" },
@@ -35,7 +35,7 @@ function About() {
     <div className="about-page">
       <Helmet>
         <title>About Us — TheKalkaTravels | Trusted Since 1999</title>
-        <meta name="description" content="TheKalkaTravels has been providing reliable taxi and tour services from Kalka since 1999. Learn about our fleet, drivers, and commitment to safe travel across North India." />
+        <meta name="description" content="TheKalkaTravels has been providing reliable taxi and tour services from Chandigarh since 1999. Learn about our fleet, drivers, and commitment to safe travel across North India." />
         <link rel="canonical" href="https://thekalkatravels.com/about" />
       </Helmet>
       {/* Hero */}
@@ -44,7 +44,7 @@ function About() {
         <div className="about-hero-content">
           <span className="section-tag" style={{ background: "rgba(249,115,22,0.2)", color: "#fdba74", border: "1px solid rgba(249,115,22,0.4)" }}>About Us</span>
           <h1>25+ Years of Trusted Travel</h1>
-          <p>From a small taxi service in Kalka to North India's most trusted travel partner — our journey is built on trust, safety, and a passion for travel.</p>
+          <p>From a small taxi service in Chandigarh to North India's most trusted travel partner — our journey is built on trust, safety, and a passion for travel.</p>
         </div>
       </section>
 
@@ -55,7 +55,7 @@ function About() {
             <div className="about-story-text">
               <span className="section-tag">Our Story</span>
               <h2 className="section-title" style={{ textAlign: "left" }}>Born in the Hills of Himachal</h2>
-              <p>TheKalkaTravels was founded in 1999 in the scenic town of Kalka, Himachal Pradesh. What started as a small taxi service with just 2 vehicles has grown into a full-fledged travel company with a fleet of 50+ vehicles.</p>
+              <p>TheKalkaTravels was founded in 1999 in Chandigarh, Punjab. What started as a small taxi service with just 2 vehicles has grown into a full-fledged travel company with a fleet of 50+ vehicles.</p>
               <p style={{ marginTop: "16px" }}>Over the past 25 years, we have served thousands of families, corporate clients, and tourists — helping them explore the beautiful landscapes of Himachal Pradesh, Punjab, Haryana, and beyond.</p>
               <p style={{ marginTop: "16px" }}>Our commitment to safety, punctuality, and customer satisfaction has made us the go-to travel partner for people across North India.</p>
               <div style={{ marginTop: "28px", display: "flex", gap: "14px", flexWrap: "wrap" }}>

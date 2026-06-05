@@ -64,6 +64,10 @@ function Home() {
   }, []);
 
   // Merge Firebase destinations with fallback — always show at least 8
+  const popularDests = destinations.filter(d => d.isPopular === true);
+  const holyPlaces   = destinations.filter(d => d.isHolyPlace === true);
+
+  // display vehicles
   const displayVehicles = vehicles;
 
   // Merge Firebase destinations with fallback — always show at least 8
@@ -104,6 +108,121 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* ===== POPULAR DESTINATIONS ===== */}
+      {popularDests.length > 0 && (
+        <section className="section home-popular-dests-section">
+          <div className="container">
+            <div className="text-center" style={{ marginBottom: "48px" }}>
+              <span className="section-tag">Top Picks</span>
+              <h2 className="section-title">Popular Destinations</h2>
+              <p className="section-desc">Explore the most loved travel destinations across North India</p>
+            </div>
+            <div className="popular-dests-grid">
+              {popularDests.slice(0, 6).map((d, i) => (
+                <div key={d.id || i} className="popular-dest-card">
+                  {d.imageUrl ? (
+                    <img
+                      src={d.imageUrl}
+                      alt={d.name}
+                      loading="lazy"
+                      onError={e => { e.target.style.display = "none"; }}
+                    />
+                  ) : (
+                    <div className="popular-dest-placeholder">📍</div>
+                  )}
+                  <div className="popular-dest-overlay">
+                    <div className="popular-dest-info">
+                      {d.state && <span className="popular-dest-state">{d.state}</span>}
+                      <h3>{d.name}</h3>
+                      <a
+                        href={`https://wa.me/${PHONE}?text=${encodeURIComponent(`Hi, I want to book a cab to ${d.name}. Please confirm availability.`)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="popular-dest-btn"
+                      >
+                        Book Cab →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {popularDests.length > 6 && (
+              <div className="text-center" style={{ marginTop: "36px" }}>
+                <Link to="/destinations" className="btn btn-primary">
+                  See All Popular Destinations →
+                </Link>
+              </div>
+            )}
+            {popularDests.length <= 6 && (
+              <div className="text-center" style={{ marginTop: "36px" }}>
+                <Link to="/destinations" className="btn btn-primary">
+                  View All Destinations →
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ===== HOLY PLACES ===== */}
+      {holyPlaces.length > 0 && (
+        <section className="section home-holy-section">
+          <div className="container">
+            <div className="text-center" style={{ marginBottom: "48px" }}>
+              <span className="section-tag" style={{ background: "rgba(167,139,250,0.15)", color: "#c4b5fd", border: "1px solid rgba(167,139,250,0.4)" }}>🛕 Pilgrimage</span>
+              <h2 className="section-title">Holy & Religious Places</h2>
+              <p className="section-desc">Sacred destinations — travel comfortably with our trusted cab service</p>
+            </div>
+            <div className="popular-dests-grid">
+              {holyPlaces.slice(0, 6).map((d, i) => (
+                <div key={d.id || i} className="popular-dest-card holy-dest-card">
+                  {d.imageUrl ? (
+                    <img
+                      src={d.imageUrl}
+                      alt={d.name}
+                      loading="lazy"
+                      onError={e => { e.target.style.display = "none"; }}
+                    />
+                  ) : (
+                    <div className="popular-dest-placeholder" style={{ background: "linear-gradient(135deg, #f5f3ff, #ede9fe)" }}>🛕</div>
+                  )}
+                  <div className="popular-dest-overlay">
+                    <div className="popular-dest-info">
+                      {d.state && <span className="popular-dest-state" style={{ background: "rgba(139,92,246,0.85)" }}>{d.state}</span>}
+                      <h3>{d.name}</h3>
+                      <a
+                        href={`https://wa.me/${PHONE}?text=${encodeURIComponent(`Hi, I want to book a cab to ${d.name} for pilgrimage. Please confirm availability.`)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="popular-dest-btn"
+                        style={{ background: "#7c3aed" }}
+                      >
+                        Book Cab →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {holyPlaces.length > 6 && (
+              <div className="text-center" style={{ marginTop: "36px" }}>
+                <Link to="/destinations" className="btn btn-primary">
+                  See All Holy Places →
+                </Link>
+              </div>
+            )}
+            {holyPlaces.length <= 6 && (
+              <div className="text-center" style={{ marginTop: "36px" }}>
+                <Link to="/destinations" className="btn btn-primary">
+                  View All Destinations →
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ===== VEHICLES ===== */}
       <section className="section home-vehicles-section">
