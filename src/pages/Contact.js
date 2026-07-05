@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
+import { trackGoogleAdsConversion, GOOGLE_ADS_CONFIG } from "../utils/googleAds";
 import "./Contact.css";
 
 const PHONE = "919815948989";
@@ -60,6 +61,14 @@ const FAQS = [
 ];
 
 function Contact() {
+  const handlePhoneClick = (e) => {
+    trackGoogleAdsConversion(GOOGLE_ADS_CONFIG.customerId, GOOGLE_ADS_CONFIG.phoneConversionLabel);
+  };
+
+  const handleWhatsAppClick = (e) => {
+    trackGoogleAdsConversion(GOOGLE_ADS_CONFIG.customerId, GOOGLE_ADS_CONFIG.whatsappConversionLabel);
+  };
+
   return (
     <div className="contact-page">
       <Helmet>
@@ -98,6 +107,7 @@ function Contact() {
                     style={{ background: c.color }}
                     target={c.external ? "_blank" : undefined}
                     rel={c.external ? "noreferrer" : undefined}
+                    onClick={c.title === "Call Us" ? handlePhoneClick : (c.title === "WhatsApp" ? handleWhatsAppClick : undefined)}
                   >
                     {c.actionLabel} →
                   </a>
@@ -132,8 +142,8 @@ function Contact() {
                 ))}
               </div>
               <div className="contact-quick-actions">
-                <a href={`tel:${PHONE}`} className="btn btn-primary">📞 Call Now</a>
-                <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp">
+                <a href={`tel:${PHONE}`} className="btn btn-primary" onClick={handlePhoneClick}>📞 Call Now</a>
+                <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp" onClick={handleWhatsAppClick}>
                   <img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp
                 </a>
               </div>

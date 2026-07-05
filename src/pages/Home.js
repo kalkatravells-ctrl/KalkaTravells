@@ -5,6 +5,7 @@ import whatsappIcon from "../Assets/WhatsApp_icon.png";
 import { getDestinations } from "../firebase/destinations";
 import { getGallery } from "../firebase/gallery";
 import { getVehicles } from "../firebase/vehicles";
+import { trackGoogleAdsConversion, GOOGLE_ADS_CONFIG } from "../utils/googleAds";
 import bgIMG from "../Assets/bgIMG.jpg";
 import "./Home.css";
 
@@ -44,6 +45,14 @@ function Home() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [destinations, setDestinations] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+
+  const handlePhoneClick = (e) => {
+    trackGoogleAdsConversion(GOOGLE_ADS_CONFIG.customerId, GOOGLE_ADS_CONFIG.phoneConversionLabel);
+  };
+
+  const handleWhatsAppClick = (e) => {
+    trackGoogleAdsConversion(GOOGLE_ADS_CONFIG.customerId, GOOGLE_ADS_CONFIG.whatsappConversionLabel);
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -95,8 +104,8 @@ function Home() {
           <h1>Your Journey, Our <span className="hero-highlight">Commitment</span></h1>
           <p>Premium taxi & tour services across North India. Safe, comfortable, and affordable travel with experienced drivers.</p>
           <div className="home-hero-actions">
-            <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Book Now</a>
-            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
+            <a href={`tel:${PHONE}`} className="btn btn-accent" onClick={handlePhoneClick}>📞 Book Now</a>
+            <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp" onClick={handleWhatsAppClick}><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
           </div>
           <div className="home-hero-stats">
             {STATS.map((s, i) => (
@@ -288,7 +297,7 @@ function Home() {
                   }
                 </div>
                 <div className="vcn-footer">
-                  <a href={`tel:${PHONE}`} className="btn vcn-btn">Book Now</a>
+                  <a href={`tel:${PHONE}`} className="btn vcn-btn" onClick={handlePhoneClick}>Book Now</a>
                 </div>
               </div>
             ))}
@@ -388,15 +397,15 @@ function Home() {
               <p>Call or WhatsApp us for instant booking and best deals across North India</p>
             </div>
             <div className="home-cta-actions">
-              <a href={`tel:${PHONE}`} className="btn btn-accent">📞 Call Now</a>
-              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp"><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
+              <a href={`tel:${PHONE}`} className="btn btn-accent" onClick={handlePhoneClick}>📞 Call Now</a>
+              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp" onClick={handleWhatsAppClick}><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Floating WhatsApp */}
-      <a href={`https://wa.me/${PHONE}`} className="whatsapp-float" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+      <a href={`https://wa.me/${PHONE}`} className="whatsapp-float" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" onClick={handleWhatsAppClick}>
         <img src={whatsappIcon} alt="WhatsApp" style={{ width: "32px", height: "32px", objectFit: "contain" }} />
       </a>
     </>
