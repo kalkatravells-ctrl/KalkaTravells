@@ -291,7 +291,7 @@ function ChandigarhLocalTaxi() {
         </div>
       </section>
 
-      {/* POPULAR ROUTES */}
+      {/* POPULAR ROUTES*/}
       <section className="routes-section">
         <div className="container">
           <div className="section-header">
