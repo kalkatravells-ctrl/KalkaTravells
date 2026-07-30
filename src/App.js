@@ -21,6 +21,7 @@ const Destinations = lazy(() => import("./pages/Destinations"));
 const RoutesPage = lazy(() => import("./pages/Routes"));
 const RouteDetail = lazy(() => import("./pages/RouteDetail"));
 const VehicleDetail = lazy(() => import("./pages/VehicleDetail"));
+const ChandigarhLocalTaxi = lazy(() => import("./pages/ChandigarhLocalTaxi"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/routes/:slug" element={<RouteDetail />} />
           <Route path="/vehicles/:slug" element={<VehicleDetail />} />
+          <Route path="/chandigarh-local-taxi" element={<ChandigarhLocalTaxi />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route
             path="/admin/dashboard"

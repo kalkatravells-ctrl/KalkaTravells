@@ -101,11 +101,12 @@ function Home() {
         <div className="home-hero-overlay" />
         <div className="home-hero-content">
           <div className="home-hero-badge">🏆 Trusted Since 1999</div>
-          <h1>Your Journey, Our <span className="hero-highlight">Commitment</span></h1>
-          <p>Premium taxi & tour services across North India. Safe, comfortable, and affordable travel with experienced drivers.</p>
+          <h1>Chandigarh Local & Outstation <span className="hero-highlight">Taxi Service</span></h1>
+          <p>Book local taxis in Chandigarh, Mohali, Panchkula & Zirakpur or travel comfortably to Shimla, Manali, Delhi, Amritsar and other destinations.</p>
           <div className="home-hero-actions">
             <a href={`tel:${PHONE}`} className="btn btn-accent" onClick={handlePhoneClick}>📞 Book Now</a>
             <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp" onClick={handleWhatsAppClick}><img src={whatsappIcon} alt="WhatsApp" style={{ width: "18px", height: "18px", objectFit: "contain" }} /> WhatsApp</a>
+            <Link to="/chandigarh-local-taxi" className="btn btn-primary">🚕 Local Taxi Service</Link>
           </div>
           <div className="home-hero-stats">
             {STATS.map((s, i) => (

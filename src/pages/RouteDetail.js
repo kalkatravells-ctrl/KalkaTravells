@@ -12,6 +12,14 @@ const PHONE = "+91 9815948989";
 const PHONE_DISPLAY = "+91 98159 48989";
 const SITE_URL = "https://kalkatravells.in";
 
+// Price mapping for specific routes
+const ROUTE_PRICES = {
+  "Chandigarh-Dharamshala": { price: "₹3,999", tpn: "+ TPN" },
+  "Dharamshala-Chandigarh": { price: "₹3,999", tpn: "+ TPN" },
+  "Chandigarh-Manali": { price: "₹4,499", tpn: "+ TPN" },
+  "Manali-Chandigarh": { price: "₹4,499", tpn: "+ TPN" },
+};
+
 // ── Route-specific meta: distance, travel time, pickup points, unique content
 const ROUTE_META = {
   "delhi-to-chandigarh": {
@@ -246,6 +254,12 @@ function Stars({ count }) {
       {"★".repeat(count)}{"☆".repeat(5 - count)}
     </span>
   );
+}
+
+// Function to get price for a route
+function getRoutePrice(from, to) {
+  const key = `${from}-${to}`;
+  return ROUTE_PRICES[key] || null;
 }
 
 // Slug helpers (exported for use in Routes.js)
@@ -551,6 +565,15 @@ export default function RouteDetail() {
 
               {/* Intro */}
               <h2 className="rd-heading">{from} to {to} Cab Booking</h2>
+              
+              {getRoutePrice(from, to) && (
+                <div className="rd-price-highlight">
+                  <span className="rd-price-label">Estimated Fare:</span>
+                  <span className="rd-price-value">{getRoutePrice(from, to).price}</span>
+                  <span className="rd-price-tpn">{getRoutePrice(from, to).tpn}</span>
+                </div>
+              )}
+
               <p className="rd-desc">
                 Looking for a reliable <strong>{from} to {to} taxi service</strong>? KalkaTravells
                 offers comfortable, safe, and affordable cab services on this route since 1999.
