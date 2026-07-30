@@ -240,18 +240,41 @@
   border-top: 1px solid var(--gray-100);
 }
 
-.route-price {
+.route-price-display {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.04) 100%);
+  border-left: 3px solid #10b981;
+  border-radius: 6px;
+  margin: 12px 0;
 }
 
 .route-price-label {
   font-size: 11px;
-  color: var(--gray-400);
-  font-weight: 500;
+  font-weight: 600;
+  color: #6b7280;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.5px;
+}
+
+.route-price-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.route-price-tpn {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.route-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .route-price-value {

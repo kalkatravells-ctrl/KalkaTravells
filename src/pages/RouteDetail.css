@@ -808,3 +808,36 @@
   .rd-link-grid { grid-template-columns: 1fr; }
   .rd-bc-current { max-width: 180px; }
 }
+
+/* PRICE HIGHLIGHT */
+.rd-price-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.04) 100%);
+  border-left: 4px solid #10b981;
+  border-radius: 8px;
+  margin: 20px 0 24px 0;
+}
+
+.rd-price-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rd-price-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #10b981;
+  line-height: 1;
+}
+
+.rd-price-tpn {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}

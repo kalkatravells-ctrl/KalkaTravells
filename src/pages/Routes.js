@@ -10,6 +10,14 @@ import "./Routes.css";
 
 const PHONE = "919815948989";
 
+// Price mapping for specific routes
+const ROUTE_PRICES = {
+  "Chandigarh-Dharamshala": { price: "₹3,999", tpn: "+ TPN" },
+  "Dharamshala-Chandigarh": { price: "₹3,999", tpn: "+ TPN" },
+  "Chandigarh-Manali": { price: "₹4,499", tpn: "+ TPN" },
+  "Manali-Chandigarh": { price: "₹4,499", tpn: "+ TPN" },
+};
+
 export default function RoutesPage() {
   const [routes, setRoutes]   = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,6 +57,12 @@ export default function RoutesPage() {
     `https://wa.me/${PHONE}?text=${encodeURIComponent(
       `Hi, I want to book a cab from ${r.from} to ${r.to} in ${r.vehicleName}. Please confirm availability.`
     )}`;
+
+  // Function to get price for a route
+  const getRoutePrice = (from, to) => {
+    const key = `${from}-${to}`;
+    return ROUTE_PRICES[key] || null;
+  };
 
   return (
     <div className="routes-page">
@@ -150,6 +164,14 @@ export default function RoutesPage() {
                       <span>{r.to}</span>
                     </div>
                   </div>
+
+                  {getRoutePrice(r.from, r.to) && (
+                    <div className="route-price-display">
+                      <span className="route-price-label">Estimated Fare:</span>
+                      <span className="route-price-value">{getRoutePrice(r.from, r.to).price}</span>
+                      <span className="route-price-tpn">{getRoutePrice(r.from, r.to).tpn}</span>
+                    </div>
+                  )}
 
                   <div className="route-card-footer">
                     <a
