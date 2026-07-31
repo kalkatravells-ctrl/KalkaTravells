@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useEffect, useState } from "react";
 import bgIMG from "../Assets/bgIMG.jpg";
 import whatsappIcon from "../Assets/WhatsApp_icon.png";
+import { getGallery } from "../firebase/gallery";
 import "./About.css";
 
 const PHONE = "919815948989";
@@ -31,6 +33,19 @@ const FEATURES = [
 ];
 
 function About() {
+  const [galleryImages, setGalleryImages] = useState([]);
+
+  useEffect(() => {
+    const loadGallery = async () => {
+      try {
+        const data = await getGallery();
+        setGalleryImages(data.slice(0, 8));
+      } catch (err) {
+        console.warn("Failed to load gallery", err);
+      }
+    };
+    loadGallery();
+  }, []);
   return (
     <div className="about-page">
       <Helmet>
@@ -117,6 +132,31 @@ function About() {
           </div>
         </div>
       </section>
+
+      {/* Gallery */}
+      {galleryImages.length > 0 && (
+        <section className="section about-gallery-section">
+          <div className="container">
+            <div className="text-center" style={{ marginBottom: "48px" }}>
+              <span className="section-tag">Our Work</span>
+              <h2 className="section-title">Gallery</h2>
+              <p className="section-desc">Moments from our happy customers' journeys</p>
+            </div>
+            <div className="about-gallery-grid">
+              {galleryImages.map((img, i) => (
+                <div key={img.id || i} className={`gallery-cell ${i === 0 ? "gallery-cell-large" : ""}`}>
+                  <img
+                    src={img.url}
+                    alt={img.name || `Gallery ${i + 1}`}
+                    loading="lazy"
+                    onError={e => { e.target.parentElement.style.display = "none"; }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="about-cta-section">

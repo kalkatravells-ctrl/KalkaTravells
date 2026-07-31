@@ -311,7 +311,7 @@ function Home() {
         <div className="container">
           <div className="text-center" style={{ marginBottom: "48px" }}>
             <span className="section-tag">Why Us</span>
-            <h2 className="section-title">Why Choose TheKalkaTravels?</h2>
+            <h2 className="section-title">Why Choose KalkaTravells?</h2>
             <p className="section-desc">We go beyond just transportation — we deliver experiences</p>
           </div>
           <div className="benefits-grid">

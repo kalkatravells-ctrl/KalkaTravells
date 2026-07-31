@@ -15,7 +15,7 @@ function Footer() {
         <div className="footer-grid">
           {/* Brand */}
           <div className="footer-section">
-            <h3 className="footer-title">TheKalkaTravels</h3>
+            <h3 className="footer-title">KalkaTravells</h3>
             <p style={{ color: "var(--gray-400)", marginBottom: "20px", fontSize: "14px", lineHeight: "1.7" }}>
               Your reliable partner for comfortable and safe travel across North India. Specializing in Himachal tours and outstation taxi services since 1999.
             </p>
@@ -78,10 +78,12 @@ function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} TheKalkaTravels. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} KalkaTravells. All Rights Reserved.</p>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px", justifyContent: "center" }}>
             <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>Designed by</span>
-            <img src={logoLB} alt="LOGO-LB" style={{ height: "28px", objectFit: "contain", opacity: 0.7 }} />
+            <a href="https://aryan-cv.vercel.app/" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", cursor: "pointer", textDecoration: "none", transition: "all 0.3s ease" }} onMouseEnter={(e) => e.target.style.opacity = "1"} onMouseLeave={(e) => e.target.style.opacity = "0.7"}>
+              <img src={logoLB} alt="LOGO-LB" style={{ height: "28px", objectFit: "contain", opacity: 0.7 }} />
+            </a>
           </div>
           <Link to="/admin" style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)", marginTop: "8px", display: "inline-block", textDecoration: "none" }}>
             🔒 Admin Login
