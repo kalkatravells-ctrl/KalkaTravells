@@ -272,7 +272,7 @@ function ChandigarhLocalTaxi() {
         </div>
       </section>
 
-      {/* POPULAR ROUTES CAROUSEL */}
+      {/* POPULAR ROUTES CAROUSEL  */}
       <section className="services-section">
         <div className="container">
           <div className="section-header">
