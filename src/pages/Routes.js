@@ -10,7 +10,7 @@ import "./Routes.css";
 
 const PHONE = "919815948989";
 
-// Price mapping for specific routes
+// Price  mapping for specific routes
 const ROUTE_PRICES = {
   "Chandigarh-Dharamshala": { price: "₹3,999", tpn: "+ TPN" },
   "Dharamshala-Chandigarh": { price: "₹3,999", tpn: "+ TPN" },
